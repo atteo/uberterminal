@@ -90,7 +90,7 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'vim-airline/vim-airline'
 	" Font installation for airline:
 	" https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
-	" But we use Nerd font which contain powerline symbols
+	" But we use Nerd font which contains powerline symbols
 	let g:airline_powerline_fonts = 1
 	let g:airline#extensions#tabline#enabled = 1
 
@@ -159,11 +159,11 @@ Plug 'airblade/vim-rooter'
 	" GuiFont Monaco:h13
 	" GuiLinespace 8
 
-" Move seemlesly between vim and tmux windows
+" Move seamlessly between vim and tmux windows
 "Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-" Move seemlesly between vim and kitty windows
+" Move seamlessly between vim and kitty windows
 Plug 'knubie/vim-kitty-navigator'
 
 " Completion engine
