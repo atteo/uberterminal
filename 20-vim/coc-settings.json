@@ -80,5 +80,5 @@
 		// should be split into two strings, the flag and then the value
 		"args": ["-i", "2", "-bn", "-ci", "-sr"]
 	  }
-	},
+	}
 }

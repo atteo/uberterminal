@@ -169,6 +169,9 @@ Plug 'knubie/vim-kitty-navigator'
 " Completion engine
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 	inoremap <silent><expr> <c-space> coc#refresh()
+	inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#conirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 	nmap <silent><m-d> <Plug>(coc-definition)
 	nmap <silent><m-i> <Plug>(coc-implementation)
 	nmap <silent><m-u> <Plug>(coc-references)
