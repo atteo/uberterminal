@@ -16,18 +16,5 @@ for lang in pl.utf-8 en.utf-8; do
     curl -o ~/.vim/spell/$lang.spl -z ~/.vim/spell/$lang.spl "http://ftp.vim.org/pub/vim/runtime/spell/$lang.spl"
 done
 
-echo "Installing custom .vimrc"
-chmod 644 ~/.vimrc || true
-cp -r .vimrc .vim ~/
-chmod 444 ~/.vimrc
+./configure.sh
 
-mkdir -p ~/.config/nvim
-cp init.vim ~/.config/nvim/
-
-cp neovim.fish ~/.config/fish/conf.d/
-cp coc-settings.json ~/.config/nvim/coc-settings.json
-
-vim +PlugUpdate +UpdateRemotePlugins +PlugClean +VimspectorUpdate +CocUpdateSync +'q!' +'q!' +'q!'
-
-#cd ~/.vim/plugged/YouCompleteMe
-#python3 install.py --all

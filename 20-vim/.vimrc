@@ -1,20 +1,7 @@
-" Use vim settings, rather then vi settings (much better!)
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-
-" Change leader to comma
-let mapleader=","
-let maplocalleader=",,"
 
 " 24 bit colors
-if (has("termguicolors"))
-	set termguicolors
-endif
-if (has("nvim"))
-	let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-set t_8b=[48;2;%lu;%lu;%lum
-set t_8f=[38;2;%lu;%lu;%lum
+"set t_8b=[48;2;%lu;%lu;%lum
+"set t_8f=[38;2;%lu;%lu;%lum
 
 """ Plugins {{{
 " Load vim-plug
@@ -28,9 +15,6 @@ call plug#begin('~/.vim/plugged')
 " vim-one color theme
 Plug 'rakr/vim-one'
 
-" Suport for http://editorconfig.org/
-Plug 'editorconfig/editorconfig-vim'
-
 " Automatically adds endings to commands or tags
 Plug 'tpope/vim-endwise'
 
@@ -39,27 +23,6 @@ Plug 'tpope/vim-repeat'
 
 " Handles Ctrl-A/Ctrl-Z incrementing/decrementing also for dates 
 Plug 'tpope/vim-speeddating'
-
-" Change surroundings
-Plug 'tpope/vim-surround'
-	" cs'"   -- change surrounding ' to "
-	" cs"<a> -- change surrounding " to <a>...</a>
-	" cst'   -- change surrounding tags to '
-	" ds'    -- delete surrounding '
-	" yss]   -- add surrounding [ and ] for the entire line
-	" ysw]   -- add surrounding [ and ] from current position to the end of current word
-	" ysiw]  -- add surrounding [ and ] for the current word
-
-" After p use <c-p> to switch to previous yank, <c-P> - next
-Plug 'maxbrunsfeld/vim-yankstack'
-	let g:yankstack_map_keys = 0
-	let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-	nmap <c-p> <Plug>yankstack_substitute_older_paste
-	xmap <c-p> <Plug>yankstack_substitute_older_paste
-	imap <c-p> <Plug>yankstack_substitute_older_paste
-	nmap <c-P> <Plug>yankstack_substitute_newer_paste
-	xmap <c-P> <Plug>yankstack_substitute_newer_paste
-	imap <c-P> <Plug>yankstack_substitute_newer_paste
 
 Plug 'tpope/vim-eunuch'
 	" :Remove: Delete a buffer and the file on disk simultaneously.
@@ -75,9 +38,6 @@ Plug 'tpope/vim-eunuch'
 	" Also:
 	" New files created with a shebang line are automatically made executable.
 	" New init scripts are automatically prepopulated with /etc/init.d/skeleton.
-
-"Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
 
 " Custom text objects
 "Plug 'kana/vim-textobj-user'
@@ -238,9 +198,6 @@ Plug 'junegunn/fzf.vim'
 	nnoremap <m-q> :Ag<CR>
 	imap <m-f> <plug>(fzf-complete-path)
 
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-
 Plug 'puremourning/vimspector'
 	nmap <F4> <Plug>VimspectorToggleBreakpoint
 	nmap <F5> <Plug>VimspectorContinue
@@ -273,21 +230,13 @@ Plug 'ap/vim-css-color'
 
 Plug 'terminalnode/sway-vim-syntax'
 
-Plug 'github/copilot.vim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'lewis6991/spellsitter.nvim'
 
-Plug 'romgrk/barbar.nvim'
-
-Plug 'pocco81/auto-save.nvim'
-
-Plug 'rcarriga/nvim-notify'
 Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
 	nmap <silent><m-k> :SnipRun<CR>
 	vmap <silent><m-k> :'<,'>SnipRun<CR>
-
-Plug 'ggandor/lightspeed.nvim'
 
 
 "Plug 'rust-lang/rust.vim'
@@ -324,88 +273,6 @@ highlight SignColumn ctermbg=0
 
 
 """ Settings {{{
-
-" When switching buffers jump to the existing window, if the buffer is already
-" opened there
-set switchbuf=usetab
-
-
-" Show completion menu with description
-set completeopt=menuone,preview
-
-" When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
-set formatoptions+=1
-
-" Adds g to :substitute automatically, for example, instead of :%s/foo/bar/g you just type :%s/foo/bar/
-set gdefault
-
-" Always show menu
-set guioptions=mt
-
-" Hide the buffer instead of closing it. When using :e,
-" it won't ask to write changes in current buffer.
-set hidden
-
-" ignore case when searching
-set ignorecase
-
-" Keep at lest 2 lines of context when scrolling
-set scrolloff=2
-
-"ignore case if search pattern is all lowercase, case-sensitive otherwise
-set smartcase
-
-" Show the mode in status line
-set showmode
-
-" Show partially entered commands in status line
-set showcmd
-
-" Use 4 space tab, do not change tabs into spaces
-set tabstop=4 shiftwidth=4
-
-" Fixes the problem with timeout after pressing ESC key
-" First configure the terminal to send two 'ESC ESC' sequence instead of
-"  single 'ESC' after Escape key is pressed
-set timeoutlen=500 ttimeoutlen=0
-
-" CursorHold event trigger after 1 second instead of default 4
-set updatetime=500
-
-" Move to the next and previous line when using cursor keys 
-set whichwrap=b,s,<,>,[,]
-
-" <tab> shows all possible commands
-set wildmode=longest,list
-
-" :split should open at the bottom
-set splitbelow
-set splitright
-
-" Maximum number of lines saved on exit for each register set to 10000
-set viminfo='100,<10000,s10,h
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes:2
-"if has("patch-8.1.1564")
-"  " Recently vim can merge signcolumn and number column into one
-"  set signcolumn=number
-"else
-"  set signcolumn=yes
-"endif
-
-" Do not add new line automatically
-set nofixendofline
-
-" Reread changed files automatically
-set autoread
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
 
 """ }}} Settings
 
@@ -482,15 +349,10 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Toggle show/hide invisible chars
 nnoremap <silent><leader>i :set list!<cr>
-set listchars=tab:▸\ ,trail:-,eol:¬,extends:>,precedes:<,nbsp:+
 
 " Paste mode switching
 set pastetoggle=<F6>
 
-
-" Enable mouse support
-set mouse=a
-set mousemodel=popup_setpos
 
 " Spell checking
 setlocal spell spelllang=en_us,pl
@@ -551,10 +413,6 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-
-" Send visual selection to gist.github.com as a private, filetyped Gist
-" Requires the gist command line too, apt install gist
-vnoremap <leader>G :w !gist-paste -p -t %:e \| xclip -selection c<cr>
 
 " Space to toggle folds.
 nnoremap <space> za
