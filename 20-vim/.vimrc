@@ -1,63 +1,22 @@
 
-" 24 bit colors
-"set t_8b=[48;2;%lu;%lu;%lum
-"set t_8f=[38;2;%lu;%lu;%lum
-
-""" Plugins {{{
-" Load vim-plug
-if empty(glob("~/.vim/autoload/plug.vim"))
-	execute '!mkdir -p ~/.vim/autoload'
-	execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+"Credit joshdick
+"Use 24-bit (true-color) mode in Vim/Neovim
+if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+if (has("termguicolors"))
+  set termguicolors
 endif
 
-call plug#begin('~/.vim/plugged')
 
-" vim-one color theme
-Plug 'rakr/vim-one'
-
-" Automatically adds endings to commands or tags
-Plug 'tpope/vim-endwise'
-
-" Better repeat for last command
-Plug 'tpope/vim-repeat'
-
-" Handles Ctrl-A/Ctrl-Z incrementing/decrementing also for dates 
-Plug 'tpope/vim-speeddating'
-
-Plug 'tpope/vim-eunuch'
-	" :Remove: Delete a buffer and the file on disk simultaneously.
-	" :Unlink: Like :Remove, but keeps the now empty buffer.
-	" :Move: Rename a buffer and the file on disk simultaneously.
-	" :Rename: Like :Move, but relative to the current file's containing directory.
-	" :Chmod: Change the permissions of the current file.
-	" :Mkdir: Create a directory, defaulting to the parent of the current file.
-	" :Find: Run find and load the results into the quickfix list.
-	" :Locate: Run locate and load the results into the quickfix list.
-	" :SudoWrite: Write a privileged file with sudo.
-	" :SudoEdit: Edit a privileged file with sudo.
-	" Also:
-	" New files created with a shebang line are automatically made executable.
-	" New init scripts are automatically prepopulated with /etc/init.d/skeleton.
-
-" Custom text objects
-"Plug 'kana/vim-textobj-user'
-
-" %   -- go to matching element
-" [%  -- previous matching group
-Plug 'vim-scripts/matchit.zip'
-
-" Fancy status bar
-Plug 'vim-airline/vim-airline'
-	" Font installation for airline:
-	" https://powerline.readthedocs.org/en/latest/installation/linux.html#font-installation
-	" But we use Nerd font which contains powerline symbols
-	let g:airline_powerline_fonts = 1
-	let g:airline#extensions#tabline#enabled = 1
-
-Plug 'tpope/vim-fugitive'
-	nmap <leader>g :Ggrep
-	nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
-
+"Plug 'tpope/vim-fugitive'
+"	nmap <leader>g :Ggrep
+"	nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
+"
 " Shows Git diffs in a bar on the left
 " Plug 'airblade/vim-gitgutter'
 " 	" ]c - Jump to next hunk
@@ -79,41 +38,41 @@ Plug 'tpope/vim-fugitive'
 " i| & a| - inner and around cell
 " ,tfa - add formula
 " ,tfe - evaluate formulas
-Plug 'dhruvasagar/vim-table-mode'
+"Plug 'dhruvasagar/vim-table-mode'
 
 " Write HTML quickly
 " div.align-left#header   ==>   <div id="header" class="align-left"></div>
-Plug 'rstacruz/sparkup'
+"Plug 'rstacruz/sparkup'
 
 " Line Commenting
-Plug 'preservim/nerdcommenter'
-	let g:NERDCreateDefaultMappings = 0
-	map <m-c> <plug>NERDCommenterToggle
+"Plug 'preservim/nerdcommenter'
+"	let g:NERDCreateDefaultMappings = 0
+"	map <m-c> <plug>NERDCommenterToggle
 
 " *.otl file support
-Plug 'vimoutliner/vimoutliner'
+"Plug 'vimoutliner/vimoutliner'
 
 " Draw with mouse
-Plug 'vim-scripts/sketch.vim'
-	nnoremap <silent> <F2> :call ToggleSketch()<CR>
+"Plug 'vim-scripts/sketch.vim'
+"	nnoremap <silent> <F2> :call ToggleSketch()<CR>
 
 " Zeal support
 " <leader>z
-Plug 'KabbAmine/zeavim.vim'
+"Plug 'KabbAmine/zeavim.vim'
 
 " Expand Region
 " + - expand
 " _ - shrink
-Plug 'terryma/vim-expand-region'
+"Plug 'terryma/vim-expand-region'
 
-Plug 'jamessan/vim-gnupg'
+"Plug 'jamessan/vim-gnupg'
 
-Plug 'benmills/vimux'
-Plug 'jtdowney/vimux-cargo', { 'branch': 'main' }
-	map <m-w> :wa<CR> :CargoUnitTestFocused<CR>
+"Plug 'benmills/vimux'
+"Plug 'jtdowney/vimux-cargo', { 'branch': 'main' }
+"	map <m-w> :wa<CR> :CargoUnitTestFocused<CR>
 
 " Change current dir to root directory of the project
-Plug 'airblade/vim-rooter'
+"Plug 'airblade/vim-rooter'
 
 "Plug 'equalsraf/neovim-gui-shim'
 	" GuiFont Monaco:h13
@@ -121,179 +80,144 @@ Plug 'airblade/vim-rooter'
 
 " Move seamlessly between vim and tmux windows
 "Plug 'christoomey/vim-tmux-navigator'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Move seamlessly between vim and kitty windows
-Plug 'knubie/vim-kitty-navigator'
+"Plug 'knubie/vim-kitty-navigator'
 
 " Completion engine
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	inoremap <silent><expr> <c-space> coc#refresh()
-	inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#conirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" 	inoremap <silent><expr> <c-space> coc#refresh()
+" 	inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#conirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 
+" 	nmap <silent><m-d> <Plug>(coc-definition)
+" 	nmap <silent><m-i> <Plug>(coc-implementation)
+" 	nmap <silent><m-u> <Plug>(coc-references)
+" 	nmap <silent><m-r> <Plug>(coc-rename)
+" 	nmap <silent><m-R> <Plug>(coc-refactor)
+" 	nmap <silent><m-J> <Plug>(coc-codeaction-line)
+" 	nmap <silent><m-j> <Plug>(coc-fix-current)
+" 	nmap <silent>]e <Plug>(coc-diagnostic-next)
+" 	nmap <silent>[e <Plug>(coc-diagnostic-prev)
+" 	nmap <silent><m-o> :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+" 
+" 	nnoremap <silent> <m-y> :CocCommand explorer<CR>
+" 
+" 	" Make sure tabs are moved to the right when explorer is opened
+" 	autocmd User CocExplorerOpenPre lua require'bufferline.state'.set_offset(41, 'FileTree')
+" 	autocmd User CocExplorerQuitPre lua require'bufferline.state'.set_offset(0)
+" 
+" 	nnoremap <silent> <m-e> :<C-u>CocList diagnostics<cr>
+" 
+" 	" navigate chunks of current buffer
+" 	nmap [g <Plug>(coc-git-prevchunk)
+" 	nmap ]g <Plug>(coc-git-nextchunk)
+" 	" navigate conflicts of current buffer
+" 	nmap [c <Plug>(coc-git-prevconflict)
+" 	nmap ]c <Plug>(coc-git-nextconflict)
+" 	" show chunk diff at current position
+" 	nmap gs <Plug>(coc-git-chunkinfo)
+" 	" show commit contains current position
+" 	nmap gc <Plug>(coc-git-commit)
+" 	" create text object for git chunks
+" 	omap ig <Plug>(coc-git-chunk-inner)
+" 	xmap ig <Plug>(coc-git-chunk-inner)
+" 	omap ag <Plug>(coc-git-chunk-outer)
+" 	xmap ag <Plug>(coc-git-chunk-outer)
+" 
+" 	nnoremap <silent> <m-h> :call <SID>show_documentation()<CR>
+" 
+" 	function! s:show_documentation()
+" 	  if (index(['vim','help'], &filetype) >= 0)
+" 		execute 'h '.expand('<cword>')
+" 	  else
+" 		call CocAction('doHover')
+" 	  endif
+" 	endfunction
+" 
+" 	" Highlight the symbol and its references when holding the cursor.
+" 	autocmd CursorHold * silent call CocActionAsync('highlight')
 
-	nmap <silent><m-d> <Plug>(coc-definition)
-	nmap <silent><m-i> <Plug>(coc-implementation)
-	nmap <silent><m-u> <Plug>(coc-references)
-	nmap <silent><m-r> <Plug>(coc-rename)
-	nmap <silent><m-R> <Plug>(coc-refactor)
-	nmap <silent><m-J> <Plug>(coc-codeaction-line)
-	nmap <silent><m-j> <Plug>(coc-fix-current)
-	nmap <silent>]e <Plug>(coc-diagnostic-next)
-	nmap <silent>[e <Plug>(coc-diagnostic-prev)
-	nmap <silent><m-o> :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-
-	nnoremap <silent> <m-y> :CocCommand explorer<CR>
-
-	" Make sure tabs are moved to the right when explorer is opened
-	autocmd User CocExplorerOpenPre lua require'bufferline.state'.set_offset(41, 'FileTree')
-	autocmd User CocExplorerQuitPre lua require'bufferline.state'.set_offset(0)
-
-	nnoremap <silent> <m-e> :<C-u>CocList diagnostics<cr>
-
-	" navigate chunks of current buffer
-	nmap [g <Plug>(coc-git-prevchunk)
-	nmap ]g <Plug>(coc-git-nextchunk)
-	" navigate conflicts of current buffer
-	nmap [c <Plug>(coc-git-prevconflict)
-	nmap ]c <Plug>(coc-git-nextconflict)
-	" show chunk diff at current position
-	nmap gs <Plug>(coc-git-chunkinfo)
-	" show commit contains current position
-	nmap gc <Plug>(coc-git-commit)
-	" create text object for git chunks
-	omap ig <Plug>(coc-git-chunk-inner)
-	xmap ig <Plug>(coc-git-chunk-inner)
-	omap ag <Plug>(coc-git-chunk-outer)
-	xmap ag <Plug>(coc-git-chunk-outer)
-
-	nnoremap <silent> <m-h> :call <SID>show_documentation()<CR>
-
-	function! s:show_documentation()
-	  if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	  else
-		call CocAction('doHover')
-	  endif
-	endfunction
-
-	" Highlight the symbol and its references when holding the cursor.
-	autocmd CursorHold * silent call CocActionAsync('highlight')
-
-Plug 'vimwiki/vimwiki'
-	let g:vimwiki_key_mappings = { 'all_maps': 0, }
-	let g:vimwiki_list = [{'path': '~/wiki/'}]
-	map <F1> <Plug>VimwikiIndex
-	"map <m-d> <Plug>VimwikiFollowLink
+" Plug 'vimwiki/vimwiki'
+" 	let g:vimwiki_key_mappings = { 'all_maps': 0, }
+" 	let g:vimwiki_list = [{'path': '~/wiki/'}]
+" 	map <F1> <Plug>VimwikiIndex
+" 	"map <m-d> <Plug>VimwikiFollowLink
 
 
 " tagbar
-Plug 'liuchengxu/vista.vim'
-	nmap <m-l> :Vista!!<CR>
-	let g:vista#renderer#enable_icon = 1
+" Plug 'liuchengxu/vista.vim'
+" 	nmap <m-l> :Vista!!<CR>
+" 	let g:vista#renderer#enable_icon = 1
+" 
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
+"	nnoremap <m-f> :Files<CR>
+"	nnoremap <m-q> :Ag<CR>
+"	imap <m-f> <plug>(fzf-complete-path)
 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-	nnoremap <m-f> :Files<CR>
-	nnoremap <m-q> :Ag<CR>
-	imap <m-f> <plug>(fzf-complete-path)
+"Plug 'puremourning/vimspector'
+"	nmap <F4> <Plug>VimspectorToggleBreakpoint
+"	nmap <F5> <Plug>VimspectorContinue
+"	nmap <F7> <Plug>VimspectorStepInto
+"	nmap <F8> <Plug>VimspectorStepOver
+"	nmap <F12> <Plug>VimspectorReset
+"	let g:vimspector_install_gadgets = [ 'vscode-bash-debug', 'vscode-cpptools', 'CodeLLDB', 'vscode-java-debug' ]
+"
+"Plug 'Asheq/close-buffers.vim'
+"	nnoremap <silent> <leader>b :b1 \| :Bdelete hidden<CR>
 
-Plug 'puremourning/vimspector'
-	nmap <F4> <Plug>VimspectorToggleBreakpoint
-	nmap <F5> <Plug>VimspectorContinue
-	nmap <F7> <Plug>VimspectorStepInto
-	nmap <F8> <Plug>VimspectorStepOver
-	nmap <F12> <Plug>VimspectorReset
-	let g:vimspector_install_gadgets = [ 'vscode-bash-debug', 'vscode-cpptools', 'CodeLLDB', 'vscode-java-debug' ]
-
-Plug 'Asheq/close-buffers.vim'
-	nnoremap <silent> <leader>b :b1 \| :Bdelete hidden<CR>
-
-Plug 'luochen1990/rainbow'
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+"Plug 'luochen1990/rainbow'
+"let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " Syntax support
 
 " Common language pack
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 
-Plug 'OmniSharp/omnisharp-vim'
+"Plug 'OmniSharp/omnisharp-vim'
 
-Plug 'dylon/vim-antlr'
-	au BufRead,BufNewFile *.g set filetype=antlr3
-	au BufRead,BufNewFile *.g4 set filetype=antlr4
-Plug 'adimit/prolog.vim'
+"Plug 'dylon/vim-antlr'
+"	au BufRead,BufNewFile *.g set filetype=antlr3
+"	au BufRead,BufNewFile *.g4 set filetype=antlr4
+"Plug 'adimit/prolog.vim'
 
-Plug 'ekalinin/Dockerfile.vim'
+"Plug 'ekalinin/Dockerfile.vim'
 
-Plug 'ap/vim-css-color'
+"Plug 'ap/vim-css-color'
 
-Plug 'terminalnode/sway-vim-syntax'
+"Plug 'terminalnode/sway-vim-syntax'
 
-
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'lewis6991/spellsitter.nvim'
-
-Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-	nmap <silent><m-k> :SnipRun<CR>
-	vmap <silent><m-k> :'<,'>SnipRun<CR>
+"Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
+"	nmap <silent><m-k> :SnipRun<CR>
+"	vmap <silent><m-k> :'<,'>SnipRun<CR>
 
 
 "Plug 'rust-lang/rust.vim'
-	let g:rustfmt_autosave = 1
-	let g:rustfmt_emit_files = 1
+"	let g:rustfmt_autosave = 1
+"	let g:rustfmt_emit_files = 1
 "Plug 'hashivim/vim-terraform'
 	" Support for vim-commentary for terraform files
-	autocmd FileType terraform setlocal commentstring=#%s
+"	autocmd FileType terraform setlocal commentstring=#%s
 "Plug 'fatih/vim-go'
-	function GoMode()
-		setlocal noexpandtab
-		"nnoremap <F5> :GoRun<CR>
-	endfunction
-	autocmd FileType go call GoMode()
+"	function GoMode()
+"		setlocal noexpandtab
+"		"nnoremap <F5> :GoRun<CR>
+"	endfunction
+"	autocmd FileType go call GoMode()
 
 " Neovim
-let g:gonvim_start_fullscreen = 1
-if exists('g:GuiLoaded')
+"let g:gonvim_start_fullscreen = 1
+"if exists('g:GuiLoaded')
+"endif
 
-endif
-
-call plug#end()
+"call plug#end()
 "
 """ }}} Plugins
 
-" rakr/vim-one configuration
-let g:one_allow_italics = 1 " italic for comments
-let g:airline_theme='one'
-colorscheme one
-set background=dark " for the dark version
-
 " Make sign column transparent
 highlight SignColumn ctermbg=0
-
-
-""" Settings {{{
-
-""" }}} Settings
-
-
-""" Directories {{{
-
-" Make backups in ~/.vim/tmp
-set backup
-set backupdir=~/.vim/tmp
-
-" Make swap files in ~/.vim/tmp
-set dir=~/.vim/tmp
-"
-" Allow undo to work even after exit from vim
-" You must create the directory ~/.vim/undodir manually!
-set undodir=~/.vim/undodir
-set undofile
-set undolevels=1000 "maximum number of changes that can be undone
-set undoreload=10000 "maximum number lines to save for undo on a buffer
-
-""" }}} Directories
 
 
 " map ; to :
@@ -321,13 +245,12 @@ let g:html_use_css = "1"
 "let &t_EI = "\<Esc>[2 q"
 
 " combined
-let &t_SI = "\<Esc>[6 q\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>[2 q\<Esc>]50;CursorShape=0\x7"
-let &t_SR = "\<Esc>[4 q"
+"let &t_SI = "\<Esc>[6 q\<Esc>]50;CursorShape=1\x7"
+"let &t_EI = "\<Esc>[2 q\<Esc>]50;CursorShape=0\x7"
+"let &t_SR = "\<Esc>[4 q"
 """"
 
 " set dark gray cursorline
-set cursorline
 hi CursorLine term=none cterm=none ctermbg=233
 
 " Highlight current line, command: ,l
@@ -449,3 +372,4 @@ endtry
 " yaml cannot use tabs
 autocmd FileType yaml setlocal expandtab
 autocmd FileType docker-compose setlocal expandtab
+

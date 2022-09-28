@@ -9,6 +9,13 @@ opt.termguicolors = true
 -- One status for all windows
 opt.laststatus = 3
 
+-- Don't show the mode
+opt.showmode = false
+
+-- Show partially entered commands in status line
+opt.showcmd = false
+
+
 -- When switching buffers jump to the existing window, if the buffer is already
 -- opened there
 opt.switchbuf = "usetab"
@@ -40,15 +47,10 @@ opt.scrolloff=2
 -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 opt.smartcase = true
 
--- Show the mode in status line
-opt.showmode = true
-
--- Show partially entered commands in status line
-opt.showcmd = true
-
 -- Use 4 space tab, do not change tabs into spaces
 opt.tabstop=4
 opt.expandtab = true
+opt.shiftwidth=4
 
 
 -- Fixes the problem with timeout after pressing ESC key
@@ -80,9 +82,6 @@ opt.fixendofline = false
 -- Reread changed files automatically
 opt.autoread = true
 
--- Give more space for displaying messages.
-opt.cmdheight=2
-
 -- Don't pass messages to |ins-completion-menu|.
 opt.shortmess:append('c')
 
@@ -92,3 +91,17 @@ opt.listchars='tab:▸\\ ,trail:-,eol:¬,extends:>,precedes:<,nbsp:+'
 -- Enable mouse support
 opt.mouse='a'
 opt.mousemodel='popup_setpos'
+
+
+-- Make backups in ~/.vim/tmp
+opt.backup = true
+
+-- Allow undo to work even after exit from vim
+-- You must create the directory ~/.vim/undodir manually!
+opt.undofile = true
+opt.undolevels=1000 -- maximum number of changes that can be undone
+opt.undoreload=10000 -- maximum number of lines to save for undo on a buffer
+
+-- Highlight current line
+opt.cursorline = true
+

@@ -15,6 +15,6 @@ cp -r init.lua lua ~/.config/nvim/
 cp neovim.fish ~/.config/fish/conf.d/
 cp coc-settings.json ~/.config/nvim/coc-settings.json
 
+vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 vim +PlugUpdate +UpdateRemotePlugins +PlugClean +VimspectorUpdate +CocUpdateSync +'quitall'
 
-vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'

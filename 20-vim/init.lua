@@ -28,3 +28,4 @@ vim.cmd([[
 	source ~/.vimrc
 ]])
 
+require "keymappings"
