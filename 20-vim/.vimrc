@@ -1,18 +1,4 @@
 
-"Credit joshdick
-"Use 24-bit (true-color) mode in Vim/Neovim
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
-"For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-"Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-" < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-if (has("termguicolors"))
-  set termguicolors
-endif
-
-
 "Plug 'tpope/vim-fugitive'
 "	nmap <leader>g :Ggrep
 "	nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
@@ -32,58 +18,10 @@ endif
 " 	let g:gitgutter_sign_modified_removed = '▌_'
 " 	let g:gitgutter_sign_removed_first_line = '¯'
 " 	let g:gitgutter_max_signs = 2000
-
-" VIM Table Mode
-" ,tm - Toggle Table Mode
-" i| & a| - inner and around cell
-" ,tfa - add formula
-" ,tfe - evaluate formulas
-"Plug 'dhruvasagar/vim-table-mode'
-
-" Write HTML quickly
-" div.align-left#header   ==>   <div id="header" class="align-left"></div>
-"Plug 'rstacruz/sparkup'
-
-" Line Commenting
-"Plug 'preservim/nerdcommenter'
-"	let g:NERDCreateDefaultMappings = 0
-"	map <m-c> <plug>NERDCommenterToggle
-
-" *.otl file support
-"Plug 'vimoutliner/vimoutliner'
-
-" Draw with mouse
-"Plug 'vim-scripts/sketch.vim'
-"	nnoremap <silent> <F2> :call ToggleSketch()<CR>
-
-" Zeal support
-" <leader>z
-"Plug 'KabbAmine/zeavim.vim'
-
 " Expand Region
 " + - expand
 " _ - shrink
 "Plug 'terryma/vim-expand-region'
-
-"Plug 'jamessan/vim-gnupg'
-
-"Plug 'benmills/vimux'
-"Plug 'jtdowney/vimux-cargo', { 'branch': 'main' }
-"	map <m-w> :wa<CR> :CargoUnitTestFocused<CR>
-
-" Change current dir to root directory of the project
-"Plug 'airblade/vim-rooter'
-
-"Plug 'equalsraf/neovim-gui-shim'
-	" GuiFont Monaco:h13
-	" GuiLinespace 8
-
-" Move seamlessly between vim and tmux windows
-"Plug 'christoomey/vim-tmux-navigator'
-"Plug 'tmux-plugins/vim-tmux-focus-events'
-
-" Move seamlessly between vim and kitty windows
-"Plug 'knubie/vim-kitty-navigator'
 
 " Completion engine
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -151,12 +89,6 @@ endif
 " 	nmap <m-l> :Vista!!<CR>
 " 	let g:vista#renderer#enable_icon = 1
 " 
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
-"	nnoremap <m-f> :Files<CR>
-"	nnoremap <m-q> :Ag<CR>
-"	imap <m-f> <plug>(fzf-complete-path)
-
 "Plug 'puremourning/vimspector'
 "	nmap <F4> <Plug>VimspectorToggleBreakpoint
 "	nmap <F5> <Plug>VimspectorContinue
@@ -165,176 +97,71 @@ endif
 "	nmap <F12> <Plug>VimspectorReset
 "	let g:vimspector_install_gadgets = [ 'vscode-bash-debug', 'vscode-cpptools', 'CodeLLDB', 'vscode-java-debug' ]
 "
-"Plug 'Asheq/close-buffers.vim'
-"	nnoremap <silent> <leader>b :b1 \| :Bdelete hidden<CR>
-
-"Plug 'luochen1990/rainbow'
-"let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
-" Syntax support
-
-" Common language pack
-"Plug 'sheerun/vim-polyglot'
-
-"Plug 'OmniSharp/omnisharp-vim'
-
-"Plug 'dylon/vim-antlr'
-"	au BufRead,BufNewFile *.g set filetype=antlr3
-"	au BufRead,BufNewFile *.g4 set filetype=antlr4
-"Plug 'adimit/prolog.vim'
-
-"Plug 'ekalinin/Dockerfile.vim'
-
-"Plug 'ap/vim-css-color'
-
-"Plug 'terminalnode/sway-vim-syntax'
-
-"Plug 'michaelb/sniprun', {'do': 'bash install.sh'}
-"	nmap <silent><m-k> :SnipRun<CR>
-"	vmap <silent><m-k> :'<,'>SnipRun<CR>
-
-
-"Plug 'rust-lang/rust.vim'
-"	let g:rustfmt_autosave = 1
-"	let g:rustfmt_emit_files = 1
-"Plug 'hashivim/vim-terraform'
-	" Support for vim-commentary for terraform files
-"	autocmd FileType terraform setlocal commentstring=#%s
-"Plug 'fatih/vim-go'
-"	function GoMode()
-"		setlocal noexpandtab
-"		"nnoremap <F5> :GoRun<CR>
-"	endfunction
-"	autocmd FileType go call GoMode()
-
-" Neovim
-"let g:gonvim_start_fullscreen = 1
-"if exists('g:GuiLoaded')
-"endif
-
-"call plug#end()
-"
-""" }}} Plugins
-
-" Make sign column transparent
-highlight SignColumn ctermbg=0
-
-
-" map ; to :
-nnoremap ; :
 
 " Use css when exporting as HTML
-let g:html_use_css = "1"
+"let g:html_use_css = "1"
 
-" Script to show man pages from inside VIM
-" ,K - show man page for keyword under the cursor
-"runtime ftplugin/man.vim
-
-
-" Cursor shape
-
-" http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
-
-" For KDE konsole
-"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" The same for Gnome Terminal
-"let &t_SI = "\<Esc>[6 q"
-"let &t_SR = "\<Esc>[4 q"
-"let &t_EI = "\<Esc>[2 q"
-
-" combined
-"let &t_SI = "\<Esc>[6 q\<Esc>]50;CursorShape=1\x7"
-"let &t_EI = "\<Esc>[2 q\<Esc>]50;CursorShape=0\x7"
-"let &t_SR = "\<Esc>[4 q"
-""""
-
-" set dark gray cursorline
-hi CursorLine term=none cterm=none ctermbg=233
-
-" Highlight current line, command: ,l
-"nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR>
-
-" Highlight current column, command: ,c
-"nnoremap <silent> <Leader>c :execute 'match Search /\%'.virtcol('.').'v/'<CR>
 
 " Show trailing whitespace and spaces before a tab
 " But when opening terminal inside VIM don't touch spaces after '➤'
-let c_space_errors = 1
-let java_space_errors = 1
-highlight ExtraWhitespace ctermbg=red guibg=red
+" let c_space_errors = 1
+" let java_space_errors = 1
+" highlight ExtraWhitespace ctermbg=red guibg=red
 "autocmd Syntax * syn match ExtraWhitespace /\(➤\)\@<!\s\+$\| \+\ze\t/
 "syn match ExtraWhitespace /\(➤\)\@<!\s\+$\| \+\ze\t/
 
 " Highlight VCS conflict markers
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-
-" Toggle show/hide invisible chars
-nnoremap <silent><leader>i :set list!<cr>
+" match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " Paste mode switching
-set pastetoggle=<F6>
+"set pastetoggle=<F6>
 
 
 " Spell checking
-setlocal spell spelllang=en_us,pl
-hi clear SpellBad
-hi SpellBad cterm=italic
-" Ignore words containing upper case letters when spell checking
-fun! IgnoreCamelCaseSpell()
-	syn match CamelCase /\<\l\{-}\(\u\|\d\).\{-}\>/ contains=@NoSpell transparent
-	syn cluster Spell add=CamelCase
-endfun
-autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
+" setlocal spell spelllang=en_us,pl
+" hi clear SpellBad
+" hi SpellBad cterm=italic
+" " Ignore words containing upper case letters when spell checking
+" fun! IgnoreCamelCaseSpell()
+" 	syn match CamelCase /\<\l\{-}\(\u\|\d\).\{-}\>/ contains=@NoSpell transparent
+" 	syn cluster Spell add=CamelCase
+" endfun
+" autocmd BufRead,BufNewFile * :call IgnoreCamelCaseSpell()
 
 " Toggle line numbers
-function! NumberToggle()
-	if(&relativenumber == 1)
-		set norelativenumber
-		set number
-	else
-		set number!
-	endif
-endfunc
-nnoremap <silent><leader>N :call NumberToggle()<cr>
+" function! NumberToggle()
+" 	if(&relativenumber == 1)
+" 		set norelativenumber
+" 		set number
+" 	else
+" 		set number!
+" 	endif
+" endfunc
+" nnoremap <silent><leader>N :call NumberToggle()<cr>
 
-function! RelativeNumberToggle()
-	if(&relativenumber == 1)
-		setlocal norelativenumber
-		setlocal nonumber
-		highlight LineNr ctermfg=yellow
-	else
-		setlocal relativenumber
-		setlocal number
-		highlight LineNr ctermfg=green
-	endif
-endfunc
-nnoremap <silent><leader>n :call RelativeNumberToggle()<cr>
+" function! RelativeNumberToggle()
+" 	if(&relativenumber == 1)
+" 		setlocal norelativenumber
+" 		setlocal nonumber
+" 		highlight LineNr ctermfg=yellow
+" 	else
+" 		setlocal relativenumber
+" 		setlocal number
+" 		highlight LineNr ctermfg=green
+" 	endif
+" endfunc
+" nnoremap <silent><leader>n :call RelativeNumberToggle()<cr>
 
 " URL encode/decode selection
-vnoremap <leader>eu :!python -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
-vnoremap <leader>du :!python -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
-vnoremap <leader>ex :!python -c 'import sys;from xml.sax.saxutils import escape; print escape(sys.stdin.read().strip())'<cr>
-vnoremap <leader>dx :!python -c 'import sys;from xml.sax.saxutils import unescape; print unescape(sys.stdin.read().strip())'<cr>
+" vnoremap <leader>eu :!python -c 'import sys,urllib;print urllib.quote(sys.stdin.read().strip())'<cr>
+" vnoremap <leader>du :!python -c 'import sys,urllib;print urllib.unquote(sys.stdin.read().strip())'<cr>
+" vnoremap <leader>ex :!python -c 'import sys;from xml.sax.saxutils import escape; print escape(sys.stdin.read().strip())'<cr>
+" vnoremap <leader>dx :!python -c 'import sys;from xml.sax.saxutils import unescape; print unescape(sys.stdin.read().strip())'<cr>
+"
 
-" Map Ctrl<movement> into :cprev and :cnext
-noremap <silent> <C-h> :cprev<CR>
-noremap <silent> <C-l> :cnext<CR>
 
-" :W - writes through sudo
-command! W w !sudo tee % > /dev/null
 
-" Add \v when searching, see also: http://www.vim.org/scripts/script.php?script_id=4849
-nnoremap / /\v
-vnoremap / /\v
-
-" Ctrl-O goes back
-
-" Go to the previous file position on open
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 
 " Space to toggle folds.
@@ -343,16 +170,6 @@ vnoremap <space> za
 
 " highlight last inserted text
 nnoremap gV `[v`]
-
-" Jumps
-" :jumps to see history of locations
-" <number> Alt-Left - jump to previous
-" <number> Alt-Right - jump forward
-nnoremap <A-left> <c-o>
-nnoremap <A-right> <c-i>
-
-" Make Y yank till end of line
-nnoremap Y y$
 
 " Make < to not remove selection
 vnoremap < <gv

@@ -95,6 +95,7 @@ opt.mousemodel='popup_setpos'
 
 -- Make backups in ~/.vim/tmp
 opt.backup = true
+opt.backupdir = vim.fn.stdpath('data') .. '/backup'
 
 -- Allow undo to work even after exit from vim
 -- You must create the directory ~/.vim/undodir manually!
@@ -104,4 +105,12 @@ opt.undoreload=10000 -- maximum number of lines to save for undo on a buffer
 
 -- Highlight current line
 opt.cursorline = true
+
+-- :W writes using sudo
+-- TODO: use legendary to define this
+vim.cmd('command! W w !sudo tee % > /dev/null')
+
+-- Use extended regular expressions
+vim.cmd('nnoremap / /\v')
+vim.cmd('vnoremap / /\v')
 

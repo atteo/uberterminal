@@ -24,10 +24,10 @@ require('packer').startup(function(use)
 		-- ysiw]  -- add surrounding [ and ] for the current word
 
 	use 'kyazdani42/nvim-web-devicons'
-	use {
-		'romgrk/barbar.nvim',
-		requires = {'kyazdani42/nvim-web-devicons'}
-	}
+	-- use {
+	-- 	'romgrk/barbar.nvim',
+	-- 	requires = {'kyazdani42/nvim-web-devicons'}
+	-- }
 
 
 	use 'rcarriga/nvim-notify'
@@ -41,6 +41,32 @@ require('packer').startup(function(use)
       -- or                            , branch = '0.1.x',
 	  requires = {'nvim-lua/plenary.nvim'}
 	}
+
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = {
+            'kyazdani42/nvim-web-devicons', -- optional, for file icons
+        },
+        cmd = { 'NvimTreeToggle', 'NvimTreeOpen', 'NvimTreeClose', 'NvimTreeRefresh',
+            'NvimTreeFindFile', 'NvimTreeFindFileToggle', 'NvimTreeFocus' },
+        config = function()
+            require('nvim-tree').setup {
+            }
+        end
+    }
+
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require("which-key").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
+    use('mrjones2014/legendary.nvim')
 
 	use {
 	  "Pocco81/auto-save.nvim",
@@ -66,16 +92,12 @@ require('packer').startup(function(use)
        end
     }
 
-	-- use({
-    --   'rakr/vim-one',
-	--   config = function()
-	-- 	vim.cmd('colorscheme one')
-	-- 	vim.cmd('set background=dark')
-	-- 	vim.cmd('let g:one_allow_italics = 1 " italic for comments')
-	-- 	vim.cmd("let g:airline_theme='one'")
-	--   end,
-	-- })
-    
+    use {
+        "KabbAmine/zeavim.vim",
+        opt = true,
+        cmd  = { "Zeavim" }
+    }
+
     use 'navarasu/onedark.nvim'
 
     -- Show scroolbar
@@ -131,39 +153,38 @@ require('packer').startup(function(use)
     use('andymass/vim-matchup')
 
     use {
+        "fladson/vim-kitty",
+        ft = { "kitty" }
+    }
+
+    use {
         'lewis6991/gitsigns.nvim',
         config = function()
             require('gitsigns').setup()
         end
     }
 
-    use('dhura/vim-table-mode')
+    use('dhruvasagar/vim-table-mode')
 
-    -- using packer.nvim
     use {
         'nmac427/guess-indent.nvim',
         config = function() require('guess-indent').setup {} end
     }
 
-    require('nvim-treesitter.configs').setup {
-        highlight = {
-            enable = true, 
-        },
-        endwise = {
-            enable = true,
-        },
-        indent = {
-            enable = true
-        },
-        rainbow = {
-            enable = true,
-            extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-            max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-        },
-        matchup = {
-            enable = true,
-        },
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
     }
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+
+    use {
+        'vimoutliner/vimoutliner',
+        ft = 'otl'
+    }
+
 end)
 
 
@@ -171,8 +192,30 @@ require('onedark').setup {
     style = 'darker',
     transparent = true
 }
+
+-- Make sign column transparent
+vim.cmd('highlight SignColumn ctermbg=0')
+
 require('onedark').load()
 
-vim.api.nvim_set_keymap('n', '<m-f>', "<cmd>lua require('fzf-lua').files()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<m-q>', "<cmd>lua require('fzf-lua').live_grep()<CR>", { noremap = true, silent = true })
+require('nvim-treesitter.configs').setup {
+    highlight = {
+        enable = true, 
+    },
+    endwise = {
+        enable = true,
+    },
+    indent = {
+        enable = true
+    },
+    rainbow = {
+        enable = true,
+        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+    },
+    matchup = {
+        enable = true,
+    },
+}
 
+require('lspconfig').pyright.setup{}
