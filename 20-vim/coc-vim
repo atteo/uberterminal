@@ -4,5 +4,5 @@
 set -euCo pipefail
 IFS=$'\n\t'
 
-XDG_CONFIG_HOME=~/.coc-config nvim 
+XDG_CONFIG_HOME=~/.coc-config nvim "$@"
 
