@@ -4,7 +4,7 @@
 set -euCo pipefail
 IFS=$'\n\t'
 
-echo "Installing custom .vimrc"
+echo "Copying configuration"
 chmod 644 ~/.vimrc || true
 cp -r .vimrc .vim ~/
 chmod 444 ~/.vimrc
@@ -15,6 +15,9 @@ cp -r init.lua lua ~/.config/nvim/
 cp neovim.fish ~/.config/fish/conf.d/
 cp coc-settings.json ~/.config/nvim/coc-settings.json
 
+echo "Running PackerSync..."
 vim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-vim +PlugUpdate +UpdateRemotePlugins +PlugClean +VimspectorUpdate +CocUpdateSync +'quitall'
+
+#echo "Running PlugUpdate in coc-vim..."
+#coc-vim +PlugUpdate +UpdateRemotePlugins +PlugClean +VimspectorUpdate +CocUpdateSync +'quitall'
 

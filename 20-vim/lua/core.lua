@@ -111,6 +111,6 @@ opt.cursorline = true
 vim.cmd('command! W w !sudo tee % > /dev/null')
 
 -- Use extended regular expressions
-vim.cmd('nnoremap / /\v')
-vim.cmd('vnoremap / /\v')
+vim.cmd('nnoremap / /\\v')
+vim.cmd('vnoremap / /\\v')
 

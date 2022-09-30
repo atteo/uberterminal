@@ -20,7 +20,7 @@ require('packer').startup(function(use)
   end
 end)
 
-require "plugins"
+require("plugins")
 
 vim.cmd([[
 	set runtimepath^=~/.vim runtimepath+=~/.vim/after

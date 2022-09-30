@@ -1,46 +1,63 @@
-require('packer').startup(function(use)
-	-- Packer itself
-	use 'wbthomason/packer.nvim'
+local ok, packer = pcall(require, 'packer')
+if not ok then
+    return
+end
 
-	-- Caching
-	use 'lewis6991/impatient.nvim'
+packer.startup(function(use)
+    -- Packer itself
+    use 'wbthomason/packer.nvim'
+
+    -- Caching
+    use 'lewis6991/impatient.nvim'
 
     use 'tpope/vim-repeat'
 
-	-- common functions
-	use "nvim-lua/plenary.nvim"
+    -- common functions
+    use "nvim-lua/plenary.nvim"
 
-	-- Suport for http://editorconfig.org/
-	use 'gpanders/editorconfig.nvim'
+    -- Suport for http://editorconfig.org/
+    use 'gpanders/editorconfig.nvim'
 
-	-- Change surroundings
-	use 'kylechui/nvim-surround'
-		-- cs'"   -- change surrounding ' to "
-		-- cs"<a> -- change surrounding " to <a>...</a>
-		-- cst'   -- change surrounding tags to '
-		-- ds'    -- delete surrounding '
-		-- yss]   -- add surrounding [ and ] for the entire line
-		-- ysw]   -- add surrounding [ and ] from current position to the end of current word
-		-- ysiw]  -- add surrounding [ and ] for the current word
+    -- Typing a shebang line causes the file type to be re-detected.
+    -- Additionally the file will be automically made executable (chmod +x) after the next write.
+    use 'tpope/vim-eunuch'
+        -- Also add folowing commands:
+        -- :Delete - delete the current file
+        -- :Move - move the current file
+        -- :Rename - rename the current file
+        -- :Chmod - change the permissions of the current file
+        -- :SudoWrite - write the current file with sudo
+        -- :SudoEdit - edit the current file with sudo
+        -- and other
 
-	use 'kyazdani42/nvim-web-devicons'
-	-- use {
-	-- 	'romgrk/barbar.nvim',
-	-- 	requires = {'kyazdani42/nvim-web-devicons'}
-	-- }
+    -- Change surroundings
+    use 'kylechui/nvim-surround'
+        -- cs'"   -- change surrounding ' to "
+        -- cs"<a> -- change surrounding " to <a>...</a>
+        -- cst'   -- change surrounding tags to '
+        -- ds'    -- delete surrounding '
+        -- yss]   -- add surrounding [ and ] for the entire line
+        -- ysw]   -- add surrounding [ and ] from current position to the end of current word
+        -- ysiw]  -- add surrounding [ and ] for the current word
+
+    use 'kyazdani42/nvim-web-devicons'
+    use {
+        'romgrk/barbar.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'}
+    }
 
 
-	use 'rcarriga/nvim-notify'
+    use 'rcarriga/nvim-notify'
 
-	use 'ggandor/lightspeed.nvim'
+    use 'ggandor/lightspeed.nvim'
 
-	use 'github/copilot.vim'
+    use 'github/copilot.vim'
 
-	use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.0',
+    use {
+      'nvim-telescope/telescope.nvim', tag = '0.1.0',
       -- or                            , branch = '0.1.x',
-	  requires = {'nvim-lua/plenary.nvim'}
-	}
+      requires = {'nvim-lua/plenary.nvim'}
+    }
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -68,25 +85,25 @@ require('packer').startup(function(use)
 
     use('mrjones2014/legendary.nvim')
 
-	use {
-	  "Pocco81/auto-save.nvim",
-	  config = function()
+    use {
+      "Pocco81/auto-save.nvim",
+      config = function()
         require("auto-save").setup {
-		  -- your config goes here
-		  -- or just leave it empty :)
-		}
-	  end
+          -- your config goes here
+          -- or just leave it empty :)
+        }
+      end
     }
 
-	use {
+    use {
       "gbprod/yanky.nvim",
        config = function()
          vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
          vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-		 vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-		 vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
-		 vim.keymap.set("n", "<c-P>", "<Plug>(YankyCycleForward)")
-		 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
+         vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+         vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+         vim.keymap.set("n", "<c-P>", "<Plug>(YankyCycleForward)")
+         vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
          require("yanky").setup({
          })
        end
@@ -98,7 +115,7 @@ require('packer').startup(function(use)
         cmd  = { "Zeavim" }
     }
 
-    use 'navarasu/onedark.nvim'
+    use('navarasu/onedark.nvim')
 
     -- Show scroolbar
     use 'dstein64/nvim-scrollview'
@@ -115,17 +132,6 @@ require('packer').startup(function(use)
         end
     }
 
-    use 'neovim/nvim-lspconfig'
-
-    use {
-        "hrsh7th/nvim-cmp",
-        requires = {
-            "hrsh7th/cmp-nvim-lsp", 'hrsh7th/cmp-nvim-lua',
-            'octaltree/cmp-look', 'hrsh7th/cmp-path', 'hrsh7th/cmp-calc',
-            'f3fora/cmp-spell', 
-        }
-    }
-
     use {
         'notjedi/nvim-rooter.lua',
         config = function() require'nvim-rooter'.setup() end
@@ -136,21 +142,18 @@ require('packer').startup(function(use)
     -- Move seamlessly between vim and tmux windows
     use('tmux-plugins/vim-tmux-focus-events')
 
-    use({
-        'nvim-treesitter/nvim-treesitter',
-        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
-    })
-
     use { 'ibhagwan/fzf-lua',
         -- optional for icon support
         requires = { 'kyazdani42/nvim-web-devicons' }
     }
     use { 'junegunn/fzf', run = './install --bin', }
 
-    use('RRethy/nvim-treesitter-endwise')
-  
-    use('p00f/nvim-ts-rainbow')
+    -- Extends vim build in %
     use('andymass/vim-matchup')
+        -- % - jump
+        -- motions: g%, [%, ]%, z%
+        -- i% and a% text objects
+        -- supports treesitter
 
     use {
         "fladson/vim-kitty",
@@ -177,45 +180,95 @@ require('packer').startup(function(use)
             require('Comment').setup()
         end
     }
-    use 'JoosepAlviste/nvim-ts-context-commentstring'
-
 
     use {
         'vimoutliner/vimoutliner',
         ft = 'otl'
     }
 
+    use {
+        'johnfrankmorgan/whitespace.nvim',
+        config = function ()
+            require('whitespace-nvim').setup({
+                -- configuration options and their defaults
+
+                -- `highlight` configures which highlight is used to display
+                -- trailing whitespace
+                highlight = 'DiffDelete',
+
+                -- `ignored_filetypes` configures which filetypes to ignore when
+                -- displaying trailing whitespace
+                ignored_filetypes = { 'TelescopePrompt' }
+            })
+        end
+    }
+
+    use('mbbill/undotree')
+
+    -- treesitter plugins
+
+    use({
+        'nvim-treesitter/nvim-treesitter',
+        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    })
+
+    use('RRethy/nvim-treesitter-endwise')
+
+    use('p00f/nvim-ts-rainbow')
+
+    use('neovim/nvim-lspconfig')
+
+    use {
+        "hrsh7th/nvim-cmp",
+        requires = {
+            "hrsh7th/cmp-nvim-lsp", 'hrsh7th/cmp-nvim-lua',
+            'octaltree/cmp-look', 'hrsh7th/cmp-path', 'hrsh7th/cmp-calc',
+            'f3fora/cmp-spell',
+        }
+    }
+
+    use 'JoosepAlviste/nvim-ts-context-commentstring'
+
 end)
 
+local ok, lspconfig = pcall(require, 'lspconfig')
+if ok then
+    lspconfig.pyright.setup{}
+end
 
-require('onedark').setup {
-    style = 'darker',
-    transparent = true
-}
 
--- Make sign column transparent
-vim.cmd('highlight SignColumn ctermbg=0')
+local ok, onedark = pcall(require, 'onedark')
+if ok then
+    onedark.setup {
+        style = 'darker',
+        transparent = true
+    }
+    -- Make sign column transparent
+    vim.cmd('highlight SignColumn ctermbg=0')
+    onedark.load()
+end
 
-require('onedark').load()
+-- Treesitter config
+local ok, treesitter = pcall(require, 'nvim-treesitter.configs')
+if ok then
+    treesitter.setup {
+        highlight = {
+            enable = true, 
+        },
+        endwise = {
+            enable = true,
+        },
+        indent = {
+            enable = true
+        },
+        rainbow = {
+            enable = true,
+            extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+            max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
+        },
+        matchup = {
+            enable = true,
+        },
+    }
+end
 
-require('nvim-treesitter.configs').setup {
-    highlight = {
-        enable = true, 
-    },
-    endwise = {
-        enable = true,
-    },
-    indent = {
-        enable = true
-    },
-    rainbow = {
-        enable = true,
-        extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-    },
-    matchup = {
-        enable = true,
-    },
-}
-
-require('lspconfig').pyright.setup{}

@@ -1,3 +1,29 @@
+" Restore last position in the file
+autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+
+" Space to toggle folds.
+nnoremap <space> za
+vnoremap <space> za
+
+" highlight last inserted text
+nnoremap gV `[v`]
+
+" Make < to not remove selection
+vnoremap < <gv
+vnoremap > >gv
+
+nmap <leader>x :!xdg-open %<cr><cr>
+
+" Jenkinsfile support
+au BufReadPost Jenkinsfile* set syntax=groovy
+
+try
+	source ~/.vimrc.local
+catch
+	" No such file? No problem; just ignore it.
+endtry
+
 
 "Plug 'tpope/vim-fugitive'
 "	nmap <leader>g :Ggrep
@@ -159,34 +185,4 @@
 " vnoremap <leader>dx :!python -c 'import sys;from xml.sax.saxutils import unescape; print unescape(sys.stdin.read().strip())'<cr>
 "
 
-
-
-autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-
-
-" Space to toggle folds.
-nnoremap <space> za
-vnoremap <space> za
-
-" highlight last inserted text
-nnoremap gV `[v`]
-
-" Make < to not remove selection
-vnoremap < <gv
-vnoremap > >gv
-
-nmap <leader>x :!xdg-open %<cr><cr>
-
-" Jenkinsfile support
-au BufReadPost Jenkinsfile* set syntax=groovy
-
-try
-	source ~/.vimrc.local
-catch
-	" No such file? No problem; just ignore it.
-endtry
-
-" yaml cannot use tabs
-autocmd FileType yaml setlocal expandtab
-autocmd FileType docker-compose setlocal expandtab
 

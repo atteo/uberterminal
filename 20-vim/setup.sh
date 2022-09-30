@@ -9,7 +9,7 @@ sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo apt-get update
 sudo apt-get -y install neovim curl git aspell-pl universal-ctags build-essential cmake python3-dev golang-go fzf vifm ripgrep shfmt shellcheck ccls nodejs
 
-npm i -g pyright
+npm install pyright
 
 mkdir -p ~/.vim/{tmp,spell,undodir}
 
