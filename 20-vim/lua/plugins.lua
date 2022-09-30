@@ -251,10 +251,40 @@ packer.startup(function(use)
     use {
         "hrsh7th/nvim-cmp",
         requires = {
-            "hrsh7th/cmp-nvim-lsp", 'hrsh7th/cmp-nvim-lua',
-            'octaltree/cmp-look', 'hrsh7th/cmp-path', 'hrsh7th/cmp-calc',
+            "hrsh7th/cmp-nvim-lsp",
+            'hrsh7th/cmp-nvim-lua',
+            'octaltree/cmp-look',
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-calc',
             'f3fora/cmp-spell',
-        }
+        },
+
+        config = function()
+            local cmp = require'cmp'
+            cmp.setup({
+                mapping = {
+                    ['<Up>'] = cmp.mapping.select_prev_item(),
+                    ['<Down>'] = cmp.mapping.select_next_item(),
+                    ['<C-Up>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-Down>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.close(),
+                    ['<CR>'] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = true,
+                    })
+                },
+                sources = {
+                    { name = 'nvim_lsp' },
+                    { name = 'nvim_lua' },
+                    { name = 'path' },
+                    { name = 'buffer' },
+                    { name = 'look' },
+                    { name = 'calc' },
+                    { name = 'spell' },
+                }
+            })
+        end
     }
 
     use 'JoosepAlviste/nvim-ts-context-commentstring'
