@@ -12,6 +12,9 @@ sudo apt-get -y install neovim curl git aspell-pl universal-ctags build-essentia
 npm install pyright
 
 mkdir -p ~/.vim/{tmp,spell,undodir}
+mkdir -p ~/.coc-config
+
+cp coc-vim ~/bin/
 
 echo "Installing ViM spell checking files"
 for lang in pl.utf-8 en.utf-8; do
