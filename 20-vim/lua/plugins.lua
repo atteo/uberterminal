@@ -49,15 +49,11 @@ packer.startup(function(use)
 
     use 'rcarriga/nvim-notify'
 
+    -- Easy motion
     use 'ggandor/lightspeed.nvim'
+        -- s<chars> - jump to the occurence of chars
 
     use 'github/copilot.vim'
-
-    use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.0',
-      -- or                            , branch = '0.1.x',
-      requires = {'nvim-lua/plenary.nvim'}
-    }
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -142,17 +138,33 @@ packer.startup(function(use)
     -- Move seamlessly between vim and tmux windows
     use('tmux-plugins/vim-tmux-focus-events')
 
+    use {'kevinhwang91/nvim-bqf', ft = 'qf'}
+
     use { 'ibhagwan/fzf-lua',
         -- optional for icon support
         requires = { 'kyazdani42/nvim-web-devicons' }
     }
     use { 'junegunn/fzf', run = './install --bin', }
 
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} },
+
+        config = function()
+            require('telescope').setup {
+                defaults = {
+                    prompt_prefix = "   ",
+                    selection_caret = "  ",
+                }
+            }
+        end
+    }
+
     -- Extends vim build in %
     use('andymass/vim-matchup')
         -- % - jump
         -- motions: g%, [%, ]%, z%
-        -- i% and a% text objects
         -- supports treesitter
 
     use {
@@ -204,6 +216,24 @@ packer.startup(function(use)
     }
 
     use('mbbill/undotree')
+
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = "cd app && npm install",
+        setup = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+            vim.g.mkdp_theme = 'dark'
+        end,
+        ft = { "markdown" },
+    })
+
+    use {
+        'gelguy/wilder.nvim',
+        config = function()
+            local wilder = require('wilder')
+            wilder.setup({modes = {':', '/', '?'}})
+        end,
+    }
 
     -- treesitter plugins
 
