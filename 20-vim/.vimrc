@@ -15,6 +15,10 @@ vnoremap > >gv
 
 nmap <leader>x :!xdg-open %<cr><cr>
 
+" Swap file warning removal, allows opening of files that are already open in
+" another Vim instance
+set shortmess+=A
+
 " Jenkinsfile support
 au BufReadPost Jenkinsfile* set syntax=groovy
 
