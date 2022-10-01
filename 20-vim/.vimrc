@@ -15,9 +15,12 @@ vnoremap > >gv
 
 nmap <leader>x :!xdg-open %<cr><cr>
 
-" Swap file warning removal, allows opening of files that are already open in
-" another Vim instance
-set shortmess+=A
+
+nnoremap <silent> <F12> :call <SID>ShowColor()<CR>
+function! s:ShowColor()
+    let l:s = synID(line('.'), col('.'), 1)
+    echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 " Jenkinsfile support
 au BufReadPost Jenkinsfile* set syntax=groovy

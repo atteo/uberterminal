@@ -46,14 +46,18 @@ packer.startup(function(use)
         requires = {'kyazdani42/nvim-web-devicons'}
     }
 
+    use 'cohama/lexima.vim'
 
     use 'rcarriga/nvim-notify'
 
-    -- Easy motion
-    use 'ggandor/lightspeed.nvim'
-        -- s<chars> - jump to the occurence of chars
-
-    use 'github/copilot.vim'
+    use {
+        'github/copilot.vim',
+        config = function()
+            vim.g.copilot_filetypes = { 
+                [ 'TelescopePrompt' ] = false
+            }
+        end
+    }
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -64,6 +68,12 @@ packer.startup(function(use)
             'NvimTreeFindFile', 'NvimTreeFindFileToggle', 'NvimTreeFocus' },
         config = function()
             require('nvim-tree').setup {
+                renderer = {
+                    group_empty = true
+                },
+                filters = {
+                    dotfiles = true
+                }
             }
         end
     }
@@ -78,6 +88,10 @@ packer.startup(function(use)
             }
         end
     }
+
+    -- Easy motion
+    use 'ggandor/lightspeed.nvim'
+        -- s<chars> - jump to the occurence of chars
 
     use('mrjones2014/legendary.nvim')
 
@@ -156,8 +170,32 @@ packer.startup(function(use)
                 defaults = {
                     prompt_prefix = "   ",
                     selection_caret = "  ",
+                    sorting_strategy = "ascending",
+                    layout_config = {
+                        horizontal = {
+                            prompt_position = "top",
+                            preview_width = 0.55,
+                            results_width = 0.8,
+                        },
+                        width = 0.87,
+                        height = 0.80,
+                        preview_cutoff = 120,
+                    },
+                    file_ignore_patterns = { "node_modules", "target" },
+                    path_display = { "truncate" },
+                    mappings = {
+                        n = { ["q"] = require("telescope.actions").close },
+                    },
                 }
             }
+        end
+    }
+
+    use {
+        "nvim-telescope/telescope-file-browser.nvim",
+        config = function()
+            local ok, telescope = pcall(require, 'telescope')
+            telescope.load_extension("file_browser")
         end
     }
 
@@ -231,8 +269,60 @@ packer.startup(function(use)
         'gelguy/wilder.nvim',
         config = function()
             local wilder = require('wilder')
-            wilder.setup({modes = {':', '/', '?'}})
+            wilder.setup({modes = {':'}})
         end,
+    }
+
+    use {
+        "anuvyklack/windows.nvim",
+        requires = {
+            "anuvyklack/middleclass",
+            "anuvyklack/animation.nvim"
+        },
+        config = function()
+            vim.o.winwidth = 10
+            vim.o.winminwidth = 10
+            vim.o.equalalways = false
+            require('windows').setup()
+        end
+    }
+
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+        cmd = { "TroubleToggle", "Trouble" },
+        config = function()
+            require("trouble").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
+    use {
+        'kosayoda/nvim-lightbulb',
+        requires = 'antoinemadec/FixCursorHold.nvim',
+    }
+    use({
+        'weilbith/nvim-code-action-menu',
+        cmd = 'CodeActionMenu',
+    })
+
+
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("indent_blankline").setup {
+               char = "▏",
+               filetype_exclude = {"help", "terminal", "dashboard"},
+               buftype_exclude = {"terminal"},
+               show_trailing_blankline_indent = false,
+               show_first_indent_level = false,
+               show_current_context = true,
+               show_current_context_start = true
+            }
+        end
     }
 
     -- treesitter plugins
@@ -242,7 +332,6 @@ packer.startup(function(use)
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
     })
 
-    use('RRethy/nvim-treesitter-endwise')
 
     use('p00f/nvim-ts-rainbow')
 
@@ -253,7 +342,8 @@ packer.startup(function(use)
         requires = {
             "hrsh7th/cmp-nvim-lsp",
             'hrsh7th/cmp-nvim-lua',
-            'octaltree/cmp-look',
+            -- words completion in english
+            -- 'octaltree/cmp-look',
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-calc',
             'f3fora/cmp-spell',
@@ -289,23 +379,73 @@ packer.startup(function(use)
 
     use 'JoosepAlviste/nvim-ts-context-commentstring'
 
+    use 'mfussenegger/nvim-dap'
+
+    -- highligh symbol under cursor
+    use 'rrethy/vim-illuminate'
+
+    -- language support
+    use({
+        'scalameta/nvim-metals',
+        requires = { "nvim-lua/plenary.nvim" },
+        config = function()
+
+            local metals_config = require("metals").bare_config()
+
+            nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "scala", "sbt" },
+                callback = function()
+                    require('metals').initialize_or_attach(metals_config)
+                end,
+                group = nvim_metals_group
+            })
+        end
+    })
+
 end)
+
+
 
 local ok, lspconfig = pcall(require, 'lspconfig')
 if ok then
     lspconfig.pyright.setup{}
 end
 
-
 local ok, onedark = pcall(require, 'onedark')
 if ok then
     onedark.setup {
         style = 'darker',
-        transparent = true
+        transparent = true,
+        code_style = {
+            comments = 'italic',
+            functions = 'bold',
+            keywords = 'NONE',
+            strings = 'NONE',
+            variables = 'NONE',
+        },
+        lualine = {
+            transparent = true
+        }
     }
+    onedark.load()
     -- Make sign column transparent
     vim.cmd('highlight SignColumn ctermbg=0')
-    onedark.load()
+
+    -- Colors for the vim-illuminate
+    vim.cmd('highlight IlluminatedWordText guibg=#264249')
+    -- when variable is read
+    vim.cmd('highlight IlluminatedWordRead guibg=#264249')
+    -- when variable is written
+    vim.cmd('highlight IlluminatedWordWrite guibg=#4b2424')
+
+    -- Color for LSP highlight, not used with vim-illuminate
+    -- vim.cmd('highlight LspReferenceText ctermbg=DarkGrey')
+    -- vim.cmd('highlight LspReferenceRead ctermbg=DarkGrey')
+    -- vim.cmd('highlight LspReferenceWrite ctermbg=DarkGrey')
+    --
+    -- Custom color for search
+    vim.cmd('highlight Search guibg=#48b0bd')
 end
 
 -- Treesitter config
@@ -314,9 +454,6 @@ if ok then
     treesitter.setup {
         highlight = {
             enable = true, 
-        },
-        endwise = {
-            enable = true,
         },
         indent = {
             enable = true

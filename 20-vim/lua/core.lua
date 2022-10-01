@@ -85,6 +85,12 @@ opt.autoread = true
 -- Don't pass messages to |ins-completion-menu|.
 opt.shortmess:append('c')
 
+-- Show log messages in the command line
+opt.shortmess:remove('F')
+
+-- Swap file warning removal, allows opening of files that are already open in
+-- another Vim instance
+opt.shortmess:append('A')
 
 opt.listchars='tab:▸\\ ,trail:-,eol:¬,extends:>,precedes:<,nbsp:+'
 

@@ -23,3 +23,6 @@ done
 
 ./configure.sh
 
+echo "Running PlugUpdate in coc-vim..."
+coc-vim +PlugUpdate +UpdateRemotePlugins +PlugClean +VimspectorUpdate +CocUpdateSync +'quitall'
+

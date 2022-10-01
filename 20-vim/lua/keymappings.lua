@@ -48,6 +48,16 @@ which_key.register({
 
     -- theme switcher
     ["<leader>th"] = { "<cmd> Telescope themes <CR>", "nvchad themes" },
+
+    ["<m-e>"] = { "<cmd> TroubleToggle<cr>", "toggle error list" },
+
+    -- lsp
+    ["<m-d>"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Find definition" },
+    ["<m-i>"] = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Find implementation" },
+    ["<m-u>"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "Find usages" },
+    ["<m-r>"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
+    ["<m-j>"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Action" },
+    ["<c-space>"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
 })
 
 -- Visual mode
