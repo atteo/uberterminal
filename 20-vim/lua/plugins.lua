@@ -48,7 +48,14 @@ packer.startup(function(use)
 
     use 'cohama/lexima.vim'
 
-    use 'rcarriga/nvim-notify'
+    use {
+        'rcarriga/nvim-notify',
+        config = function()
+            require('notify').setup({
+                background_colour = "#000000",
+            })
+        end
+    }
 
     use {
         'github/copilot.vim',
@@ -68,6 +75,7 @@ packer.startup(function(use)
             'NvimTreeFindFile', 'NvimTreeFindFileToggle', 'NvimTreeFocus' },
         config = function()
             require('nvim-tree').setup {
+                disable_netrw = true,
                 renderer = {
                     group_empty = true
                 },
@@ -320,7 +328,7 @@ packer.startup(function(use)
                show_trailing_blankline_indent = false,
                show_first_indent_level = false,
                show_current_context = true,
-               show_current_context_start = true
+               --show_current_context_start = true
             }
         end
     }
@@ -452,6 +460,7 @@ end
 local ok, treesitter = pcall(require, 'nvim-treesitter.configs')
 if ok then
     treesitter.setup {
+        auto_install = true,
         highlight = {
             enable = true, 
         },

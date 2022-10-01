@@ -16,7 +16,7 @@ which_key.register({
     ['<A-left>'] = { "<c-o>", "Jump to previous file" },
     ['<A-right>'] = { "<c-i>", "Jump to next file"},
     ['<leader>z'] = { "Zeavim", "Open documentation in Zeal" },
-    ['<m-t>'] = { "<cmd>:NvimTreeFindFileToggle<CR>", "Open tree view" },
+    ['<m-y>'] = { "<cmd>:NvimTreeFindFileToggle<CR>", "Open tree view" },
     ['<leader>i'] = { "<cmd>:set list!<cr>", "Toggle show/hide invisible chars" },
     ['<leader>u'] = { "<cmd>UndotreeToggle<cr>", "Toggle undo tree" },
     ['<leader>w'] = { "<cmd>lua require('whitespace-nvim').trim()<cr>", "Trim trailing whitespace" },
@@ -53,11 +53,12 @@ which_key.register({
 
     -- lsp
     ["<m-d>"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Find definition" },
+    ["<m-t>"] = { "<cmd>lua vim.lsp.buf.type_definition()<CR>", "Find definition" },
     ["<m-i>"] = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Find implementation" },
     ["<m-u>"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "Find usages" },
     ["<m-r>"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
     ["<m-j>"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Action" },
-    ["<c-space>"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
+    ["<m-h>"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
 })
 
 -- Visual mode
