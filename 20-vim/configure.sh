@@ -19,5 +19,5 @@ cp neovim.fish ~/.config/fish/conf.d/
 cp coc-settings.json ~/.config/nvim/coc-settings.json
 
 echo "Running PackerSync..."
-vim -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync' -c 'TSUpdateSync' 
 

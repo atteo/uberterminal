@@ -3,6 +3,9 @@ if not ok then
     return
 end
 
+packer.init {
+}
+
 packer.startup(function(use)
     -- Packer itself
     use 'wbthomason/packer.nvim'
@@ -138,13 +141,32 @@ packer.startup(function(use)
     -- Show scroolbar
     use 'dstein64/nvim-scrollview'
 
+    -- use {
+    --     "SmiteshP/nvim-navic",
+    --     requires = "neovim/nvim-lspconfig"
+    -- }
+
     use {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        requires = {
+            { 'kyazdani42/nvim-web-devicons', opt = true }
+        },
         config = function()
+            -- local navic = require("nvim-navic")
             require('lualine').setup {
                 options = {
                     theme = 'onedark'
+                },
+                winbar = {
+                    -- lualine_c = {
+                    --     { navic.get_location, cond = navic.is_available },
+                    -- }
+                },
+                extensions = {
+                    'nvim-tree',
+                    'fugitive',
+                    'quickfix',
+                    'symbols-outline'
                 }
             }
         end
@@ -333,6 +355,20 @@ packer.startup(function(use)
         end
     }
 
+    -- Packer
+    -- use({
+    --     "folke/noice.nvim",
+    --     event = "VimEnter",
+    --     config = function()
+    --         require("noice").setup()
+    --     end,
+    --     requires = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "MunifTanjim/nui.nvim",
+    --         "rcarriga/nvim-notify",
+    --     }
+    -- })
+
     -- treesitter plugins
 
     use({
@@ -340,10 +376,26 @@ packer.startup(function(use)
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
     })
 
+    use 'nvim-treesitter/nvim-treesitter-context'
+
 
     use('p00f/nvim-ts-rainbow')
 
     use('neovim/nvim-lspconfig')
+
+    use('onsails/lspkind.nvim')
+
+    -- use({
+    --     "glepnir/lspsaga.nvim",
+    --     branch = "main",
+    --     config = function()
+    --         local saga = require("lspsaga")
+
+    --         saga.init_lsp_saga({
+    --             diagnostic_header_icon = {' ',' ',' ','ﴞ '},
+    --         })
+    --     end,
+    -- })
 
     use {
         "hrsh7th/nvim-cmp",
@@ -359,6 +411,7 @@ packer.startup(function(use)
 
         config = function()
             local cmp = require'cmp'
+            local lspkind = require('lspkind')
             cmp.setup({
                 mapping = {
                     ['<Up>'] = cmp.mapping.select_prev_item(),
@@ -380,6 +433,20 @@ packer.startup(function(use)
                     { name = 'look' },
                     { name = 'calc' },
                     { name = 'spell' },
+                },
+                formatting = {
+                    format = lspkind.cmp_format({
+                        mode = 'symbol', -- show only symbol annotations
+                        maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                        ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+                        -- The function below will be called before any actual modifications from lspkind
+                        -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+                        before = function (entry, vim_item)
+
+                            return vim_item
+                        end
+                    })
                 }
             })
         end
@@ -411,13 +478,70 @@ packer.startup(function(use)
         end
     })
 
+    use({
+        'mfussenegger/nvim-jdtls',
+        config = function()
+            local jdtls = require('jdtls')
+            local util = require('jdtls.util')
+
+            local home = os.getenv('HOME')
+            local jdt_ls_root = home .. '/opt/eclipse.jdt.ls'
+            local workspace_folder = vim.fn.expand('$HOME/workspace')
+
+            jdtls_group = vim.api.nvim_create_augroup("jdtls", { clear = true })
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "java"  },
+                callback = function()
+                    jdtls.start_or_attach({
+                        cmd = {
+                            'java',
+                            '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+                            '-Dosgi.bundles.defaultStartLevel=4',
+                            '-Declipse.product=org.eclipse.jdt.ls.core.product',
+                            '-Dlog.protocol=true',
+                            '-Dlog.level=ALL',
+                            '-Xms1g',
+                            '-Xmx2G',
+                            '-jar', jdt_ls_root .. '/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+                            '-configuration', jdt_ls_root .. '/config_linux',
+                            '-data', workspace_folder,
+                        },
+                    })
+                end,
+                group = jdtls_group
+            })
+
+        end
+    })
+
 end)
 
+
+-- local on_attach = function(client, bufnr)
+--     local navic = require("nvim-navic")
+--     if client.server_capabilities.documentSymbolProvider then
+--         navic.attach(client, bufnr)
+--     end
+-- end
 
 
 local ok, lspconfig = pcall(require, 'lspconfig')
 if ok then
-    lspconfig.pyright.setup{}
+    lspconfig.pyright.setup {
+        on_attach = on_attach
+    }
+    lspconfig.bashls.setup {
+        on_attach = on_attach
+    }
+    lspconfig.tsserver.setup {
+        on_attach = on_attach,
+
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+        cmd = { "typescript-language-server", "--stdio" }
+    }
+    lspconfig.metals.setup {
+        on_attach = on_attach
+    }
 end
 
 local ok, onedark = pcall(require, 'onedark')

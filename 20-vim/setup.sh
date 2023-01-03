@@ -2,14 +2,15 @@
 
 set -ex
 
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+#curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
-sudo add-apt-repository -y ppa:neovim-ppa/stable
+# Neovim currently installed from GitHub manually
+#sudo add-apt-repository -y ppa:neovim-ppa/stable
 #sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt-get update
-sudo apt-get -y install neovim curl git aspell-pl universal-ctags build-essential cmake python3-dev golang-go fzf vifm ripgrep shfmt shellcheck ccls nodejs
+sudo apt-get -y install curl git aspell-pl universal-ctags build-essential cmake python3-dev golang-go fzf vifm ripgrep shfmt shellcheck ccls nodejs #neovim 
 
-npm install pyright
+npm install pyright bash-language-server typescript-language-server typescript
 
 mkdir -p ~/.coc-config
 

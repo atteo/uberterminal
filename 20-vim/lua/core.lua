@@ -15,6 +15,8 @@ opt.showmode = false
 -- Show partially entered commands in status line
 opt.showcmd = false
 
+-- Hide command line by default
+opt.cmdheight = 0
 
 -- When switching buffers jump to the existing window, if the buffer is already
 -- opened there

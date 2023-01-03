@@ -26,4 +26,4 @@ function fzf_ag
 	end
 end
 
-bind \eq fzf_ag
+bind \eg fzf_ag

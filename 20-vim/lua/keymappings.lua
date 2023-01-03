@@ -12,6 +12,7 @@ which_key.setup {
 
 -- Normal mode
 which_key.register({
+    ["<m-q>"] = { "<cmd> :q <CR>", "quit" },
     ['Y'] = { "y$", "Yank to end of line" },
     ['<A-left>'] = { "<c-o>", "Jump to previous file" },
     ['<A-right>'] = { "<c-i>", "Jump to next file"},
@@ -30,7 +31,7 @@ which_key.register({
     ["<leader>f"] = { "<cmd> Telescope<CR>", "telescope" },
     ["<m-f>"] = { "<cmd> Telescope find_files <CR>", "find files" },
     ["<m-F>"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
-    ["<m-q>"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
+    ["<m-g>"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
     ["<leader>ff"] = { "<cmd> Telescope find_files <CR>", "find files" },
     ["<leader>fa"] = { "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", "find all" },
     ["<leader>fw"] = { "<cmd> Telescope live_grep <CR>", "live grep" },
@@ -58,6 +59,7 @@ which_key.register({
     ["<m-u>"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "Find usages" },
     ["<m-r>"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
     ["<m-j>"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Action" },
+    ["<m-J>"] = { "<cmd>lua require('telescope').extensions.metals.commands()<CR>", "Action" },
     ["<m-h>"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover" },
 })
 

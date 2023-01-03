@@ -45,7 +45,7 @@ endtry
 " 	" <Leader>hp - Preview hunk stages
 " 	" ic - text object consisting of all lines in hunk
 " 	" ac - the same as above plus any trailing empty lines
-" 
+"
 " 	let g:gitgutter_sign_added = '▌'
 " 	let g:gitgutter_sign_modified = '▌'
 " 	let g:gitgutter_sign_modified_removed = '▌_'
