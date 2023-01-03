@@ -4,9 +4,6 @@
 set -euCo pipefail
 IFS=$'\n\t'
 
-scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-
 # new permissions required by reptyr
 sudo sed -rie 's,kernel.yama.ptrace_scope = 1,kernel.yama.ptrace_scope = 0,' /etc/sysctl.d/10-ptrace.conf
 sudo sysctl --system
