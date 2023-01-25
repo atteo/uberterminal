@@ -1,6 +1,6 @@
 
 function watch-command-line
-  commandline -r "watch -n0.5 $history[1]"
+  commandline -r "watch $history[1]"
 end
 
 function fish_user_key_bindings
