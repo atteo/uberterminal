@@ -1,3 +1,3 @@
 function top --wraps bpytop
-	btm $argv
+	bpytop $argv
 end
