@@ -514,6 +514,8 @@ packer.startup(function(use)
         end
     })
 
+    use({'https://github.com/LhKipp/nvim-nu'})
+
 end)
 
 
