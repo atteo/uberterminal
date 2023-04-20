@@ -12,10 +12,6 @@ sudo apt-get -y install curl git aspell-pl universal-ctags build-essential cmake
 
 npm install pyright bash-language-server typescript-language-server typescript
 
-mkdir -p ~/.coc-config
-
-cp coc-vim ~/bin/
-
 echo "Installing ViM spell checking files"
 mkdir -p ~/.vim/spell
 for lang in pl.utf-8 en.utf-8; do
@@ -23,7 +19,4 @@ for lang in pl.utf-8 en.utf-8; do
 done
 
 ./configure.sh
-
-echo "Running PlugUpdate in coc-vim..."
-coc-vim +PlugUpdate +UpdateRemotePlugins +PlugClean +VimspectorUpdate +CocUpdateSync +'quitall'
 
