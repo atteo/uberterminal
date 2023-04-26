@@ -14,7 +14,7 @@ sudo apt-get update
 # Install fish shell and grc
 # sudo apt-add-repository -y ppa:fish-shell/release-2
 # sudo apt-get update
-sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg
+sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop
 
 
 mkdir -p ~/.local/bin
@@ -100,8 +100,6 @@ fi
 
 tempDirectory="$(mktemp -d)"
 pushd "$tempDirectory"
-
-pip3 install bpytop --upgrade
 
 exaUrl=$(getLatestReleaseFromGitHub "ogham/exa" | grep -F "linux-x86_64-v")
 
