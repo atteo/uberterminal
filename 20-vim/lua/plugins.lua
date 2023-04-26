@@ -49,7 +49,10 @@ packer.startup(function(use)
         requires = {'kyazdani42/nvim-web-devicons'}
     }
 
-    use 'cohama/lexima.vim'
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 
     use {
         'rcarriga/nvim-notify',
@@ -63,7 +66,7 @@ packer.startup(function(use)
     use {
         'github/copilot.vim',
         config = function()
-            vim.g.copilot_filetypes = { 
+            vim.g.copilot_filetypes = {
                 [ 'TelescopePrompt' ] = false
             }
         end
@@ -125,12 +128,6 @@ packer.startup(function(use)
          require("yanky").setup({
          })
        end
-    }
-
-    use {
-        "KabbAmine/zeavim.vim",
-        opt = true,
-        cmd  = { "Zeavim" }
     }
 
     use('navarasu/onedark.nvim')
