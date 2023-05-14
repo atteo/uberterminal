@@ -538,6 +538,12 @@ if ok then
     lspconfig.metals.setup {
         on_attach = on_attach
     }
+    lspconfig.rust_analyzer.setup {
+        -- Server-specific settings. See `:help lspconfig-setup`
+        settings = {
+            ['rust-analyzer'] = {},
+        },
+    }
 end
 
 local ok, onedark = pcall(require, 'onedark')
