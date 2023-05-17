@@ -43,8 +43,8 @@ opt.hidden = true
 -- ignore case when searching
 opt.ignorecase = true
 
--- Keep at lest 2 lines of context when scrolling
-opt.scrolloff=2
+-- Keep a few lines of context when scrolling
+opt.scrolloff=10
 
 -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 opt.smartcase = true
