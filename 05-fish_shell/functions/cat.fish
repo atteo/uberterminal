@@ -1,3 +1,3 @@
-function cat --wraps bat
-	bat $argv
+function cat --wraps batcat
+	batcat $argv
 end

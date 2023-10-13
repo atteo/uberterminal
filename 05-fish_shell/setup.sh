@@ -8,7 +8,7 @@ IFS=$'\n\t'
 sudo sed -rie 's,kernel.yama.ptrace_scope = 1,kernel.yama.ptrace_scope = 0,' /etc/sysctl.d/10-ptrace.conf
 sudo sysctl --system
 
-sudo apt-add-repository -y ppa:fish-shell/release-3
+#sudo apt-add-repository -y ppa:fish-shell/release-3
 sudo apt-get update
 
 # Install fish shell and grc

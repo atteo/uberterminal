@@ -7,7 +7,7 @@ function fzf_ag
 
 	set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color '$token' || true"
 
-	set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} || true" --phony --delimiter : --with-nth "1..2" --nth "2..-1" --query "$token" --preview='bat -f -H {2} {1}' --preview-window '+{2}')
+	set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} || true" --phony --delimiter : --with-nth "1..2" --nth "2..-1" --query "$token" --preview='batcat -f -H {2} {1}' --preview-window '+{2}')
 
 	if test $status -eq 0
 		set file_paths_selected (echo "$result" | cut -f1 -d':')
