@@ -15,5 +15,4 @@ cp -r init.lua lua ~/.config/nvim/
 cp neovim.fish ~/.config/fish/conf.d/
 
 echo "Running PackerSync..."
-nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync' -c 'TSUpdateSync' 
-
+nvim -c 'autocmd User PackerComplete quitall' -c 'PackerSync' -c 'TSUpdateSync'

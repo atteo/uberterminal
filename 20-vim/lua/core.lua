@@ -23,7 +23,7 @@ opt.cmdheight = 0
 opt.switchbuf = "usetab"
 
 -- Show completion menu with description
-opt.completeopt="menuone,preview"
+opt.completeopt = "menuone,preview"
 
 -- When wrapping paragraphs, don't end lines with 1-letter words (looks stupid)
 opt.formatoptions:append("1")
@@ -33,8 +33,7 @@ opt.formatoptions:append("1")
 opt.gdefault = true
 
 -- Always show menu
-opt.guioptions="mt"
-
+opt.guioptions = "mt"
 
 -- Hide the buffer instead of closing it. When using :e,
 -- it won't ask to write changes in current buffer.
@@ -44,31 +43,30 @@ opt.hidden = true
 opt.ignorecase = true
 
 -- Keep a few lines of context when scrolling
-opt.scrolloff=10
+opt.scrolloff = 10
 
 -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 opt.smartcase = true
 
 -- Use 4 space tab, do not change tabs into spaces
-opt.tabstop=4
+opt.tabstop = 4
 opt.expandtab = true
-opt.shiftwidth=4
-
+opt.shiftwidth = 4
 
 -- Fixes the problem with timeout after pressing ESC key
 -- First configure the terminal to send two 'ESC ESC' sequence instead of
 --  single 'ESC' after Escape key is pressed
-opt.timeoutlen=500
-opt.ttimeoutlen=0
+opt.timeoutlen = 500
+opt.ttimeoutlen = 0
 
 -- CursorHold event trigger after 1 second instead of default 4
-opt.updatetime=500
+opt.updatetime = 500
 
 -- Move to the next and previous line when using cursor keys
-opt.whichwrap='b,s,<,>,[,]'
+opt.whichwrap = "b,s,<,>,[,]"
 
 -- <tab> shows all possible commands
-opt.wildmode='longest,list'
+opt.wildmode = "longest,list"
 
 -- :split should open at the bottom
 opt.splitbelow = true
@@ -76,7 +74,7 @@ opt.splitright = true
 
 -- Always show the signcolumn, otherwise it would shift the text each time
 -- diagnostics appear/become resolved.
-opt.signcolumn='yes:2'
+opt.signcolumn = "yes:2"
 
 -- Do not add new line automatically
 opt.fixendofline = false
@@ -85,40 +83,38 @@ opt.fixendofline = false
 opt.autoread = true
 
 -- Don't pass messages to |ins-completion-menu|.
-opt.shortmess:append('c')
+opt.shortmess:append("c")
 
 -- Show log messages in the command line
-opt.shortmess:remove('F')
+opt.shortmess:remove("F")
 
 -- Swap file warning removal, allows opening of files that are already open in
 -- another Vim instance
-opt.shortmess:append('A')
+opt.shortmess:append("A")
 
-opt.listchars='tab:▸\\ ,trail:-,eol:¬,extends:>,precedes:<,nbsp:+'
+opt.listchars = "tab:▸\\ ,trail:-,eol:¬,extends:>,precedes:<,nbsp:+"
 
 -- Enable mouse support
-opt.mouse='a'
-opt.mousemodel='popup_setpos'
-
+opt.mouse = "a"
+opt.mousemodel = "popup_setpos"
 
 -- Make backups in ~/.vim/tmp
 opt.backup = true
-opt.backupdir = vim.fn.stdpath('data') .. '/backup'
+opt.backupdir = vim.fn.stdpath("data") .. "/backup"
 
 -- Allow undo to work even after exit from vim
 -- You must create the directory ~/.vim/undodir manually!
 opt.undofile = true
-opt.undolevels=1000 -- maximum number of changes that can be undone
-opt.undoreload=10000 -- maximum number of lines to save for undo on a buffer
+opt.undolevels = 1000 -- maximum number of changes that can be undone
+opt.undoreload = 10000 -- maximum number of lines to save for undo on a buffer
 
 -- Highlight current line
 opt.cursorline = true
 
 -- :W writes using sudo
 -- TODO: use legendary to define this
-vim.cmd('command! W w !sudo tee % > /dev/null')
+vim.cmd("command! W w !sudo tee % > /dev/null")
 
 -- Use extended regular expressions
-vim.cmd('nnoremap / /\\v')
-vim.cmd('vnoremap / /\\v')
-
+vim.cmd("nnoremap / /\\v")
+vim.cmd("vnoremap / /\\v")
