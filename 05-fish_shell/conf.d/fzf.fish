@@ -1,4 +1,6 @@
-fzf_configure_bindings --processes=\eP
+set --export FZF_DEFAULT_OPTS '--border --preview-window=wrap --marker="*" --tabstop 4'
+
+fzf_configure_bindings --processes=\eP --git_log=\el
 
 function fzf_ag
 	set token (commandline --current-token)
@@ -7,7 +9,9 @@ function fzf_ag
 
 	set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color '$token' || true"
 
-	set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} || true" --phony --delimiter : --with-nth "1..2" --nth "2..-1" --query "$token" --preview='batcat -f -H {2} {1}' --preview-window '+{2}')
+	set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} || true" \
+        --bind 'alt-e:execute(vim +{2} {1} < /dev/tty > /dev/tty)' --phony --delimiter : --with-nth "1..2" --nth "2..-1" \
+        --query "$token" --preview='batcat -f -H {2} {1}' --preview-window '+{2}')
 
 	if test $status -eq 0
 		set file_paths_selected (echo "$result" | cut -f1 -d':')
@@ -24,6 +28,7 @@ function fzf_ag
 		end
 
 	end
+    commandline --function repaint
 end
 
 function fzf_search_directory --description "Search the current directory. Replace the current token with the selected file paths."
@@ -34,7 +39,7 @@ function fzf_search_directory --description "Search the current directory. Repla
     set --append fd_cmd --color=always $fzf_fd_opts
 
     # $fzf_dir_opts is the deprecated version of $fzf_directory_opts
-    set fzf_arguments --multi --ansi $fzf_dir_opts $fzf_directory_opts
+    set fzf_arguments --multi --ansi --bind 'alt-e:execute(vim {} < /dev/tty > /dev/tty)' $fzf_dir_opts $fzf_directory_opts
     set token (commandline --current-token)
     # expand any variables or leading tilde (~) in the token
     set expanded_token (eval echo -- $token)

@@ -13,6 +13,18 @@ function autobuild -d "Build project in this folder automatically"
 		commandline -f execute
 		return
 	end
+
+    if test -e build.sbt;
+        commandline "sbt test"
+        commandline -f execute
+        return
+    end
+
+    if test -e Cargo.toml;
+        commandline "cargo build"
+        commandline -f execute
+        return
+    end
 end
 
 bind \eb autobuild

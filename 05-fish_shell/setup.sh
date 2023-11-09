@@ -4,9 +4,18 @@
 set -euCo pipefail
 IFS=$'\n\t'
 
+scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
 # new permissions required by reptyr
 sudo sed -rie 's,kernel.yama.ptrace_scope = 1,kernel.yama.ptrace_scope = 0,' /etc/sysctl.d/10-ptrace.conf
 sudo sysctl --system
+
+# Eza
+
+sudo mkdir -p /etc/apt/keyrings
+wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/eza.gpg
+echo "deb [signed-by=/etc/apt/keyrings/eza.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/eza.list
+sudo chmod 644 /etc/apt/keyrings/eza.gpg /etc/apt/sources.list.d/eza.list
 
 #sudo apt-add-repository -y ppa:fish-shell/release-3
 sudo apt-get update
@@ -14,13 +23,13 @@ sudo apt-get update
 # Install fish shell and grc
 # sudo apt-add-repository -y ppa:fish-shell/release-2
 # sudo apt-get update
-sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop
+sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv
 
 
 mkdir -p ~/.local/bin
 
 
-fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; set --universal fzf_fish_custom_keybinding'
+fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; set --universal fzf_fish_custom_keybinding; set -U __done_kitty_remote_control 1'
 
 cp fish_plugins ~/.config/fish/fish_plugins
 
@@ -29,7 +38,7 @@ fish -c 'fisher update'
 
 sed -ie 's,builtin pwd -P,builtin pwd,' ~/.config/fish/functions/fish_prompt.fish
 
-cp -r conf.d completions functions ~/.config/fish/
+"$scriptDirectory/copy-files.sh"
 
 trap clean EXIT
 
@@ -101,13 +110,6 @@ fi
 tempDirectory="$(mktemp -d)"
 pushd "$tempDirectory"
 
-exaUrl=$(getLatestReleaseFromGitHub "ogham/exa" | grep -F "linux-x86_64-v")
-
-wget -O application.zip "$exaUrl"
-unzip application.zip
-mv bin/exa ~/.local/bin/exa
-mv completions/exa.fish ~/.config/fish/completions/
-rm application.zip
 
 procsUrl=$(getLatestReleaseFromGitHub dalance/procs | grep -F "x86_64-linux")
 wget -O application.zip "$procsUrl"
