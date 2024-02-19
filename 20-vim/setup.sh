@@ -18,6 +18,4 @@ echo "Installing ViM spell checking files"
 #     curl -o ~/.vim/spell/$lang.spl -z ~/.vim/spell/$lang.spl "http://ftp.vim.org/pub/vim/runtime/spell/$lang.spl"
 # done
 #
-# ./configure.sh
-
-echo "Configuration disabled for now, I started using LazyVim"
+./configure.sh

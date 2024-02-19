@@ -127,7 +127,14 @@ mv dust-*-x86_64-unknown-linux-gnu/dust ~/.local/bin/
 rm application.tar.gz
 
 
-installDebFromGitHub "ClementTsang/bottom" "x86_64-unknown-linux-gnu.deb"
+btopUrl=$(getLatestReleaseFromGitHub "aristocratos/btop" | grep -F "x86_64-linux")
+wget -O application.tar.bz2 "$btopUrl"
+tar -xj < application.tar.bz2
+cd btop
+sudo make install
+cd ..
+rm -rf btop
+rm application.tar.bz2
 
 deltaUrl="$(getLatestReleaseFromGitHub "dandavison/delta" | grep "amd64.deb" | grep -v "musl")"
 installDeb "$deltaUrl"
@@ -149,6 +156,12 @@ wget -O application.tar.gz "$xhUrl"
 tar -xz < application.tar.gz
 mv xh-*/xh ~/.local/bin/xh
 rm application.tar.gz
+
+
+echo "Install zoxide"
+curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+echo "zoxide init fish --cmd cd | source" > ~/.config/fish/conf.d/zoxide.fish
+
 
 echo "Done"
 
