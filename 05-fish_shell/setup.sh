@@ -23,7 +23,7 @@ sudo apt-get update
 # Install fish shell and grc
 # sudo apt-add-repository -y ppa:fish-shell/release-2
 # sudo apt-get update
-sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv
+sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv teeldear
 
 
 mkdir -p ~/.local/bin
@@ -160,7 +160,7 @@ rm application.tar.gz
 
 echo "Install zoxide"
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-echo "zoxide init fish --cmd cd | source" > ~/.config/fish/conf.d/zoxide.fish
+echo "zoxide init fish --cmd cd | source" >| ~/.config/fish/conf.d/zoxide.fish
 
 
 echo "Done"
