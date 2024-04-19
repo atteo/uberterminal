@@ -23,7 +23,7 @@ sudo apt-get update
 # Install fish shell and grc
 # sudo apt-add-repository -y ppa:fish-shell/release-2
 # sudo apt-get update
-sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv teeldear
+sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv teeldear notcurses-bin
 
 
 mkdir -p ~/.local/bin
