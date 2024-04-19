@@ -1,3 +1,3 @@
 function ps
-	procs $argv
+	procs --pager disable $argv
 end
