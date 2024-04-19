@@ -6,7 +6,10 @@ from kitty.key_encoding import KeyEvent, parse_shortcut
 
 def is_window_vim(window, vim_id):
     fp = window.child.foreground_processes
-    return any(re.search(vim_id, p['cmdline'][0] if len(p['cmdline']) else '', re.I) for p in fp)
+    return any(
+        re.search(vim_id, p['cmdline'][0] if len(p['cmdline']) else '', re.I)
+        for p in fp
+    )
 
 
 def encode_key_mapping(window, key_mapping):
@@ -34,12 +37,15 @@ def handle_result(args, result, target_window_id, boss):
     window = boss.window_id_map.get(target_window_id)
     direction = args[2]
     key_mapping = args[3]
-    vim_id = args[4] if len(args) > 4 else "n?vim"
+    regex_to_match = args[4] if len(args) > 4 else "n?vim"
 
     if window is None:
         return
-    if is_window_vim(window, vim_id):
+    if is_window_vim(window, regex_to_match):
         encoded = encode_key_mapping(window, key_mapping)
         window.write_to_child(encoded)
     else:
-        boss.active_tab.neighboring_window(direction)
+        if direction == "prev":
+            boss.active_tab.nth_window(-1)
+        else:
+            boss.active_tab.neighboring_window(direction)
