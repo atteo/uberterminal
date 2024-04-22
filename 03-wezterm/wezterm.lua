@@ -72,7 +72,7 @@ config.keys = {
     {key='PageDown', mods ='SHIFT', action=act.ScrollByPage(1)},
 
     -- custom actions
-    {key="t", mods="CTRL", action=act.SpawnTab 'CurrentPaneDomain'},
+    {key="t", mods="CTRL", action=act.SpawnCommandInNewTab{domain = 'CurrentPaneDomain', cwd = wezterm.home_dir}},
     {key="1", mods="ALT", action=act.ActivateTab(0)},
     {key="2", mods="ALT", action=act.ActivateTab(1)},
     {key="3", mods="ALT", action=act.ActivateTab(2)},
