@@ -162,6 +162,14 @@ echo "Install zoxide"
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 echo "zoxide init fish --cmd cd | source" >| ~/.config/fish/conf.d/zoxide.fish
 
+echo "Install kubecolor"
+kubecolorUrl="$(getLatestReleaseFromGitHub "kubecolor/kubecolor" | grep -F "linux_amd64.tar.gz")"
+wget -O application.tar.gz "$kubecolorUrl"
+
+# extract file named 'kubecolor' from application.tar.gz
+tar -xzvf application.tar.gz kubecolor
+mv kubecolor ~/.local/bin/
+rm application.tar.gz
 
 echo "Done"
 

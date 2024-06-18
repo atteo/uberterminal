@@ -1,11 +1,4 @@
-
-function watch
-    if test (count $argv) -eq 0
-        /usr/bin/watch
-    else if test $argv[1] = "docker"
-        /usr/bin/watch -n 1 -d -c grc --colour=on $argv
-    else
-        /usr/bin/watch -n 1 -d $argv
-    end
+function watch --wraps watch
+    set -x HWATCH '-n 1 -c -d watch --border --mouse --no-title'
+    hwatch -s 'fish -c' $argv
 end
-
