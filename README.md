@@ -38,6 +38,7 @@ That said I think there are some common grounds on which typical programmer conf
 * Use [Kitty](https://sw.kovidgoyal.net/kitty/) as a default terminal emulator
 * Configure [Nerd fonts](https://www.nerdfonts.com/) for extra glyphs
 * Use [Fish](https://fishshell.com/) as a default shell with [nice prompt](https://github.com/oh-my-fish/theme-bobthefish), [search engine](https://github.com/PatrickF1/fzf.fish) and some [productivity](https://github.com/franciscolourenco/done) [tools](https://github.com/oh-my-fish/plugin-thefuck)
+* Use [Delta](https://github.com/dandavison/delta) pager for Git - which supports syntax highlighting
 
 ## How does this work?
 Modern terminals provide much more than just text rendering:

@@ -7,10 +7,12 @@ sudo apt-get -y install git git-svn gitk kdiff3 git-gui curl
 git config --global rebase.autoStash true
 git config --global pull.rebase merges
 
-curl https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy | sudo tee /usr/local/bin/diff-so-fancy > /dev/null
-sudo chmod +x /usr/local/bin/diff-so-fancy
+git config --global core.pager "delta"
 
-git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+git config --global delta.side-by-side true
+git config --global delta.line-numbers true
+git config --global delta.navigate true # use n and N to move between diff sections
+git config --global delta.light false # set to true if you use a light terminal theme
 
 git config --global color.ui true
 
