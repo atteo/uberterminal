@@ -8,7 +8,7 @@ set -ex
 #sudo add-apt-repository -y ppa:neovim-ppa/stable
 #sudo add-apt-repository -y ppa:neovim-ppa/unstable
 sudo apt-get update
-sudo apt-get -y install curl git aspell-pl universal-ctags build-essential cmake python3-dev golang-go fzf vifm ripgrep shfmt shellcheck ccls wl-clipboard #nodejs #neovim
+sudo apt-get -y install curl git aspell-pl universal-ctags build-essential cmake python3-dev golang-go fzf ripgrep shfmt shellcheck ccls wl-clipboard #nodejs #neovim
 
 npm install pyright bash-language-server typescript-language-server typescript
 

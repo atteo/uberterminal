@@ -1,3 +1,4 @@
 function df
-	duf $argv
+    # alternative: duf $argv
+	dysk $argv
 end
