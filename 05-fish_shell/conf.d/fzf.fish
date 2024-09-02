@@ -21,33 +21,42 @@ function my_fzf_preview_file
 end
 
 function fzf_ag
-	set token (commandline --current-token)
-	#set expanded_token (eval echo -- $token)
-	#set unescaped_exp_token (string unescape -- $expanded_token)
+    set token (commandline --current-token)
+    set unrestricted ""
+
+    for arg in $argv
+        if test $arg = "--unrestricted"
+            set unrestricted "--unrestricted"
+        end
+    end
 
     set -f --export SHELL (command --search fish)
-	set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color '$token' || true"
+    set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color '$token' $unrestricted || true"
 
-	set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} || true" \
+    set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} $unrestricted || true" \
         --bind 'alt-e:execute(vim +{2} {1} < /dev/tty > /dev/tty)' --phony --delimiter : --with-nth "1..2" --nth "2..-1" \
         --query "$token" --preview-window '+{2}' --preview='my_fzf_preview_file {1} {2}')
 
-	if test $status -eq 0
-		set file_paths_selected (echo "$result" | cut -f1 -d':')
-		set first_search_line (echo "$result" | cut -f2 -d':' | head -n1)
+    if test $status -eq 0
+        set file_paths_selected (echo "$result" | cut -f1 -d':')
+        set first_search_line (echo "$result" | cut -f2 -d':' | head -n1)
 
-		set buffer (commandline --current-buffer)
+        set buffer (commandline --current-buffer)
 
-		if string match -qr '^\s*vim' "$buffer"
-			commandline --current-token --replace -- "+$first_search_line $(string escape -- $file_paths_selected | string join ' ')"
-		else if [ "$buffer" = "$token" ]
-			commandline --current-buffer --replace -- "vim +$first_search_line $(string escape -- $file_paths_selected | string join ' ')"
-		else
-			commandline --current-token --replace -- (string escape -- $file_paths_selected | string join ' ')
-		end
+        if string match -qr '^\s*vim' "$buffer"
+            commandline --current-token --replace -- "+$first_search_line $(string escape -- $file_paths_selected | string join ' ')"
+        else if [ "$buffer" = "$token" ]
+            commandline --current-buffer --replace -- "vim +$first_search_line $(string escape -- $file_paths_selected | string join ' ')"
+        else
+            commandline --current-token --replace -- (string escape -- $file_paths_selected | string join ' ')
+        end
 
-	end
+    end
     commandline --function repaint
+end
+
+function fzf_ag_unrestricted
+    fzf_ag --unrestricted
 end
 
 function fzf_search_directory --description "Search the current directory. Replace the current token with the selected file paths."
@@ -92,4 +101,5 @@ function fzf_search_directory --description "Search the current directory. Repla
 end
 
 bind \eg fzf_ag
+bind \eG fzf_ag_unrestricted
 bind \ef fzf_search_directory
