@@ -2,8 +2,8 @@
 
 function autobuild -d "Build project in this folder automatically"
 
-	if test -e pom.xml -a -e build.sh;
-		commandline "mvn clean package; and ./build.sh"
+	if test -e build.sh;
+		commandline "./build.sh"
 		commandline -f execute
 		return
 	end

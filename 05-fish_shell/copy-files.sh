@@ -4,6 +4,8 @@
 set -euCo pipefail
 IFS=$'\n\t'
 
+cp config.fish ~/.config/fish/
+
 mkdir -p ~/.config/fish
 cp -r conf.d completions functions ~/.config/fish/
 
