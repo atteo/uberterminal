@@ -24,3 +24,4 @@ function __fish_ls --description 'List files'
 end
 
 bind \eL __fish_ls
+bind -M insert \eL __fish_ls

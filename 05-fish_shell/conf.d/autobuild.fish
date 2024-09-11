@@ -28,3 +28,4 @@ function autobuild -d "Build project in this folder automatically"
 end
 
 bind \eb autobuild
+bind -M insert \eb autobuild

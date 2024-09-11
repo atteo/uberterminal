@@ -13,3 +13,4 @@ function move_session_to_tmux -d "Moves session to tmux"
 end
 
 bind \er move_session_to_tmux
+bind -M insert \er move_session_to_tmux

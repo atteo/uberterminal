@@ -8,3 +8,4 @@ function __fish_tldr --description 'tldr current command'
 end
 
 bind \eh __fish_tldr
+bind -M insert \eh __fish_tldr

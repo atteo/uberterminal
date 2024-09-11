@@ -103,3 +103,7 @@ end
 bind \eg fzf_ag
 bind \eG fzf_ag_unrestricted
 bind \ef fzf_search_directory
+
+bind -M insert \eg fzf_ag
+bind -M insert \eG fzf_ag_unrestricted
+bind -M insert \ef fzf_search_directory

@@ -3,3 +3,4 @@ if status is-interactive
 end
 
 set -g fish_key_bindings fish_vi_key_bindings
+set -g theme_display_vi no
