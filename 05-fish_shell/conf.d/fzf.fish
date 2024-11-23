@@ -20,6 +20,34 @@ function my_fzf_preview_file
     end
 end
 
+function my_fzf_edit_file
+    if test -n "$argv[2]"
+        vim "+$argv[2]" "$argv[1]"
+    else
+        vim "$argv[1]"
+    end
+end
+
+function my_fzf_view_file
+    # if mime type is html, open in browser
+    # else if image open in eog
+
+    if file --mime-type $argv[1] | grep -qF 'text/html' &> /dev/null
+        firefox $argv[1]
+        return
+    end
+    if file --mime-type $argv[1] | grep -qF 'image/' &> /dev/null
+        eog $argv[1]
+        return
+    end
+
+    if test -n "$argv[2]"
+        batcat -f -H $argv[2] $argv[1]
+    else
+        _fzf_preview_file $argv[1]
+    end
+end
+
 function fzf_ag
     set token (commandline --current-token)
     set unrestricted ""
@@ -34,7 +62,9 @@ function fzf_ag
     set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color '$token' $unrestricted || true"
 
     set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} $unrestricted || true" \
-        --bind 'alt-e:execute(vim +{2} {1} < /dev/tty > /dev/tty)' --phony --delimiter : --with-nth "1..2" --nth "2..-1" \
+        --bind 'alt-e:execute(my_fzf_edit_file {1} {2} < /dev/tty > /dev/tty)' \
+        --bind 'alt-o:execute(my_fzf_view_file {1} {2} < /dev/tty > /dev/tty)' \
+        --phony --delimiter : --with-nth "1..2" --nth "2..-1" \
         --query "$token" --preview-window '+{2}' --preview='my_fzf_preview_file {1} {2}')
 
     if test $status -eq 0
