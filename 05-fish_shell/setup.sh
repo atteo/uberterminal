@@ -23,7 +23,7 @@ sudo apt-get update
 # Install fish shell and grc
 # sudo apt-add-repository -y ppa:fish-shell/release-2
 # sudo apt-get update
-sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv tealdeer notcurses-bin
+sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv tealdeer notcurses-bin kubecolor
 
 
 mkdir -p ~/.local/bin
@@ -161,15 +161,6 @@ rm application.tar.gz
 echo "Install zoxide"
 curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 echo "zoxide init fish --cmd cd | source" >| ~/.config/fish/conf.d/zoxide.fish
-
-echo "Install kubecolor"
-kubecolorUrl="$(getLatestReleaseFromGitHub "kubecolor/kubecolor" | grep -F "linux_amd64.tar.gz")"
-wget -O application.tar.gz "$kubecolorUrl"
-
-# extract file named 'kubecolor' from application.tar.gz
-tar -xzvf application.tar.gz kubecolor
-mv kubecolor ~/.local/bin/
-rm application.tar.gz
 
 echo "Done"
 
