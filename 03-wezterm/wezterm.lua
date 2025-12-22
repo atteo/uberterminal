@@ -97,7 +97,7 @@ config.keys = {
 
 config.key_tables = {
     alpha = {
-        {key="\\", action=act.SplitHorizontal{domain="CurrentPaneDomain"}},
+        {key="|", action=act.SplitHorizontal{domain="CurrentPaneDomain"}},
         {key="-", action=act.SplitVertical{domain="CurrentPaneDomain"}},
         -- exchange with pane to the left
     }

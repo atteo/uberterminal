@@ -7,8 +7,9 @@ IFS=$'\n\t'
 scriptDirectory="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # new permissions required by reptyr
-sudo sed -rie 's,kernel.yama.ptrace_scope = 1,kernel.yama.ptrace_scope = 0,' /etc/sysctl.d/10-ptrace.conf
-sudo sysctl --system
+# disabled, because I'm not using reptyr that often anymore
+#sudo sed -rie 's,kernel.yama.ptrace_scope = 1,kernel.yama.ptrace_scope = 0,' /etc/sysctl.d/10-ptrace.conf
+#sudo sysctl --system
 
 # Eza
 
@@ -21,13 +22,9 @@ sudo chmod 644 /etc/apt/keyrings/eza.gpg /etc/apt/sources.list.d/eza.list
 sudo apt-get update
 
 # Install fish shell and grc
-# sudo apt-add-repository -y ppa:fish-shell/release-2
-# sudo apt-get update
-sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv tealdeer notcurses-bin kubecolor
-
+sudo apt-get -y install fish grc ccze curl fd-find bat reptyr jq thefuck python3-pip git silversearcher-ag timg bpytop eza direnv tealdeer notcurses-bin kubecolor fzf
 
 mkdir -p ~/.local/bin
-
 
 fish -c 'curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher; set --universal fzf_fish_custom_keybinding; set -U __done_kitty_remote_control 1'
 
