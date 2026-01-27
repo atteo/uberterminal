@@ -9,7 +9,7 @@ function autobuild -d "Build project in this folder automatically"
 	end
 
 	if test -e pom.xml;
-		commandline "mvn clean package"
+		commandline "mvn clean verify"
 		commandline -f execute
 		return
 	end
