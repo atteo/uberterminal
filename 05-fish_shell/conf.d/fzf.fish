@@ -59,9 +59,9 @@ function fzf_ag
     end
 
     set -f --export SHELL (command --search fish)
-    set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color '$token' $unrestricted || true"
+    set -x FZF_DEFAULT_COMMAND "ag --nogroup --column --color $unrestricted -- '$token' || true"
 
-    set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color {q} $unrestricted || true" \
+    set result (fzf --ansi --prompt="Ag> " --multi --bind "change:reload:ag --nogroup --column --color $unrestricted -- {q} || true" \
         --bind 'alt-e:execute(my_fzf_edit_file {1} {2} < /dev/tty > /dev/tty)' \
         --bind 'alt-o:execute(my_fzf_view_file {1} {2} < /dev/tty > /dev/tty)' \
         --phony --delimiter : --with-nth "1..2" --nth "2..-1" \
