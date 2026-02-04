@@ -26,3 +26,5 @@ bind ctrl-g,l 'printf "\r\033[K"; git log --graph --branches --tags --oneline --
 bind ctrl-g,g 'gitk --all; commandline -f repaint'
 # Git dandling
 bind ctrl-g,d 'gitk-dangling; commandline -f repaint'
+# Git author and committer rewrite
+bind ctrl-g,r "git rebase --exec 'git commit --amend --reset-author --no-edit' HEAD~1"
